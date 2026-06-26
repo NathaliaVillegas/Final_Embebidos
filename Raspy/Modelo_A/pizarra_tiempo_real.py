@@ -2,11 +2,9 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 
-# 1. Cargar el modelo de clasificación entrenado
 ruta_modelo = "runs/classify/runs/pizarra/clasificador_math_pro/weights/best.pt"
 model = YOLO(ruta_modelo)
 
-# 2. Inicializar la webcam USB
 cap = cv2.VideoCapture(1)
 cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
@@ -20,11 +18,9 @@ print("====================================================")
 
 cv2.namedWindow("Deteccion Optimizada", cv2.WINDOW_NORMAL)
 
-# ESTRUCTURAS DE MEMORIA TEMPORAL AUTÓNOMA (Previene parpadeos)
 memoria_pizarra = {}
 ID_CONTADOR = 0
 
-# REGION DE INTERÉS (ROI) TOTALMENTE CONFIGURADA
 X_MIN_ROI, X_MAX_ROI = 20, 620
 Y_MIN_ROI, Y_MAX_ROI = 20, 440
 
@@ -36,7 +32,6 @@ def evaluar_pizarra():
         print("[EVALUADOR] Pizarra vacía.")
         return
 
-    # Ordenamiento espacial robusto de izquierda a derecha (Eje X)
     elementos_ordenados = sorted(elementos_validos, key=lambda k: k["bbox"][0])
     expresion_completa = "".join([str(item["char"]) for item in elementos_ordenados])
     print(f"\n[EVALUADOR] Cadena leída: {expresion_completa}")
@@ -80,7 +75,6 @@ while True:
     imagen_visual = frame.copy()
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # Máscaras HSV estables
     mascara_negro = cv2.inRange(hsv, np.array([0, 0, 0]), np.array([180, 255, 85]))
     mascara_azul = cv2.inRange(hsv, np.array([90, 45, 30]), np.array([135, 255, 255]))
     mascara_rojo = cv2.bitwise_or(
@@ -89,7 +83,6 @@ while True:
     )
     mascara_total = cv2.bitwise_or(cv2.bitwise_or(mascara_negro, mascara_azul), mascara_rojo)
 
-    # Filtro ROI
     mascara_roi = np.zeros_like(mascara_total)
     mascara_roi[Y_MIN_ROI:Y_MAX_ROI, X_MIN_ROI:X_MAX_ROI] = 255
     mascara_limpia = cv2.bitwise_and(mascara_total, mascara_roi)
@@ -109,9 +102,7 @@ while True:
     for contorno in contornos:
         x, y, w, h = cv2.boundingRect(contorno)
         
-        # Filtro de tamaño mínimo base
         if w > 12 and h > 6 and w < 110 and h < 110:
-            # Filtro anti-bordes de madera
             if (x <= X_MIN_ROI + 12) or (x + w >= X_MAX_ROI - 12) or (y <= Y_MIN_ROI + 12) or (y + h >= Y_MAX_ROI - 5):
                 continue
 
@@ -149,7 +140,6 @@ while True:
                 recorte_cuadrado = np.ones((max_dim, max_dim, 3), dtype=np.uint8) * 255
                 recorte_cuadrado[(max_dim-alto_r)//2 : (max_dim-alto_r)//2+alto_r, (max_dim-ancho_r)//2 : (max_dim-ancho_r)//2+ancho_r] = recorte_raw
 
-                # Inferencia con un umbral de confianza estándar estable (0.35)
                 prediccion = model.predict(source=recorte_cuadrado, verbose=False, conf=0.35)
                 
                 if len(prediccion) > 0 and prediccion[0].probs is not None:
@@ -159,13 +149,11 @@ while True:
                     # Metemos el voto directo del modelo al historial de estabilidad temporal
                     datos_casilla["historial_votos"].append(voto_actual)
 
-            # Consenso de estabilidad tras 12 frames continuos
             if datos_casilla["frames_visto"] >= 12:
                 votos = datos_casilla["historial_votos"]
                 if votos:
                     ganador = max(set(votos), key=votos.count)
                     
-                    # Mapeo semántico limpio
                     if ganador == "plus": ganador = "+"
                     elif ganador == "minus": ganador = "-"
                     elif ganador == "multiply": ganador = "X"
@@ -176,21 +164,18 @@ while True:
                     
                     datos_casilla["char"] = ganador
 
-    # Auto-borrado temporal por ausencia de píxeles
     for id_reg in list(memoria_pizarra.keys()):
         if id_reg not in casillas_actualizadas:
             memoria_pizarra[id_reg]["frames_ausente"] += 1
             if memoria_pizarra[id_reg]["frames_ausente"] >= 15:
                 del memoria_pizarra[id_reg]
 
-    # Capa gráfica estable
     for id_reg, datos in memoria_pizarra.items():
         if datos["char"] is not None:
             bx, by, bw, bh = datos["bbox"]
             cv2.rectangle(imagen_visual, (bx, by), (bx + bw, by + bh), (0, 255, 0), 2)
             cv2.putText(imagen_visual, datos["char"], (bx, by - 8), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
-    # Dibujar recuadro guía azul
     cv2.rectangle(imagen_visual, (X_MIN_ROI, Y_MIN_ROI), (X_MAX_ROI, Y_MAX_ROI), (255, 0, 0), 1)
     cv2.imshow("Deteccion Optimizada", imagen_visual)
     
