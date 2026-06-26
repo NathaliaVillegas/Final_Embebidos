@@ -1,0 +1,151 @@
+import cv2
+import numpy as np
+
+AREA_MIN = 4000
+AREA_MAX = 100000
+MARGEN = 10
+
+cam = cv2.VideoCapture(0)
+
+if not cam.isOpened():
+    print("No se pudo abrir la camara.")
+    exit()
+
+while True:
+
+    ret, frame = cam.read()
+
+    if not ret:
+        break
+
+    #frame = cv2.flip(frame, 1)
+
+    alto_frame, ancho_frame = frame.shape[:2]
+
+
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    blur = cv2.GaussianBlur(gray, (7, 7), 0)
+
+    # THREHOLD
+
+    _, thresh = cv2.threshold(
+        blur,
+        120,
+        255,
+        cv2.THRESH_BINARY_INV
+    )
+
+    kernel = np.ones((5, 5), np.uint8)
+
+    thresh = cv2.morphologyEx(
+        thresh,
+        cv2.MORPH_CLOSE,
+        kernel,
+        iterations=2
+    )
+
+    thresh = cv2.morphologyEx(
+        thresh,
+        cv2.MORPH_OPEN,
+        kernel,
+        iterations=1
+    )
+
+    contours, _ = cv2.findContours(
+        thresh,
+        cv2.RETR_EXTERNAL,
+        cv2.CHAIN_APPROX_SIMPLE
+    )
+
+    contador = 0
+
+    for c in contours:
+
+        area = cv2.contourArea(c)
+
+        # no ruido
+        if area < AREA_MIN:
+            continue
+
+        if area > AREA_MAX:
+            continue
+
+        x, y, w, h = cv2.boundingRect(c)
+
+        # para el margen ignorarlos
+        if x <= MARGEN:
+            continue
+
+        if y <= MARGEN:
+            continue
+
+        if x + w >= ancho_frame - MARGEN:
+            continue
+
+        if y + h >= alto_frame - MARGEN:
+            continue
+        relacion = w / h
+
+        if relacion < 0.5 or relacion > 2.0:
+            continue
+
+        #contorno
+        perimetro = cv2.arcLength(c, True)
+
+        approx = cv2.approxPolyDP(
+            c,
+            0.02 * perimetro,
+            True
+        )
+
+
+        if len(approx) > 25:
+            continue
+
+        contador += 1
+
+        cv2.drawContours(frame,[c],-1,(0, 255, 0),3)
+
+        cv2.rectangle(frame,(x, y),(x + w, y + h),(255, 0, 0),
+            2
+        )
+
+        cv2.putText(
+            frame,
+            str(contador),
+            (x, y - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (0, 0, 255),
+            2
+        )
+
+    # ===========================================
+    # TEXTO
+    # ===========================================
+
+    cv2.putText(
+        frame,
+        f"Total: {contador}",
+        (20, 40),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        1,
+        (0, 255, 255),
+        2
+    )
+
+    # ===========================================
+    # MOSTRAR
+    # ===========================================
+
+    cv2.imshow("Camara", frame)
+    cv2.imshow("Mascara", thresh)
+
+    tecla = cv2.waitKey(1) & 0xFF
+
+    if tecla == ord('q'):
+        break
+
+cam.release()
+cv2.destroyAllWindows()
