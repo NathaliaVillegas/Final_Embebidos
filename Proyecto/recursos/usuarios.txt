@@ -1,0 +1,249 @@
+======================================================================
+USUARIO: Nath
+FECHA: 26/06/2026
+HORA DE INICIO: 10:52:05
+HORA DE FIN: 10:52:10
+
+MODO: Modo 1
+INTENTOS: 10
+
+RESULTADOS
+
+1) Conteo de 1 obj -> Escribió 1    Respuesta: Detectada por IA    -> Correcto
+2) Conteo de 0 obj -> Escribió 2    Respuesta: Detectada por IA    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 1
+Puntaje     : 50.0%
+
+======================================================================
+
+======================================================================
+USUARIO: L
+FECHA: 26/06/2026
+HORA DE INICIO: 11:02:54
+HORA DE FIN: 11:04:32
+
+MODO: Modo 2
+INTENTOS: 2
+
+RESULTADOS
+
+1) 77 / 11 = 0    Respuesta: Visión Artificial    -> Incorrecto
+2) 10 + 16 = 2    Respuesta: Visión Artificial    -> Incorrecto
+3) Mesa (2 obj) vs Pizarra (82)    Respuesta: Visión Artificial    -> Incorrecto
+4) Mesa (2 obj) vs Pizarra (2)    Respuesta: Visión Artificial    -> Correcto
+
+Correctas   : 1
+Incorrectas : 3
+Puntaje     : 25.0%
+
+======================================================================
+
+======================================================================
+USUARIO: o
+FECHA: 26/06/2026
+HORA DE INICIO: 11:11:10
+HORA DE FIN: 11:13:23
+
+MODO: Modo 1
+INTENTOS: 3
+
+RESULTADOS
+
+1) 117 / 13 = 4    Respuesta: Visión Artificial    -> Incorrecto
+2) 19 - 5 = 4    Respuesta: Visión Artificial    -> Incorrecto
+3) 36 / 9 = 4    Respuesta: Visión Artificial    -> Correcto
+4) 18 / 18 = 8    Respuesta: Visión Artificial    -> Incorrecto
+5) 6 + 8 = 8    Respuesta: Visión Artificial    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 4
+Puntaje     : 20.0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 11:24:22
+HORA DE FIN: 11:25:28
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 11:24:22
+HORA DE FIN: 11:25:29
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 11:25:57
+HORA DE FIN: 11:26:04
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 11:25:57
+HORA DE FIN: 11:26:04
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: 1
+FECHA: 26/06/2026
+HORA DE INICIO: 11:28:07
+HORA DE FIN: 11:28:10
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: 1
+FECHA: 26/06/2026
+HORA DE INICIO: 11:28:07
+HORA DE FIN: 11:28:11
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: 1
+FECHA: 26/06/2026
+HORA DE INICIO: 11:29:07
+HORA DE FIN: 11:29:12
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: 1
+FECHA: 26/06/2026
+HORA DE INICIO: 11:30:09
+HORA DE FIN: 11:30:22
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 11:34:27
+HORA DE FIN: 11:35:27
+
+MODO: Modo 2
+INTENTOS: 1
+
+RESULTADOS
+
+1) 14 + 9 = 30    Respuesta: Cámara    -> Incorrecto
+2) Mesa:3 -> Escrito:3    Respuesta: Cámara    -> Correcto
+
+Correctas   : 1
+Incorrectas : 1
+Puntaje     : 50.0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 11:34:27
+HORA DE FIN: 11:35:30
+
+MODO: Modo 2
+INTENTOS: 1
+
+RESULTADOS
+
+1) 14 + 9 = 30    Respuesta: Cámara    -> Incorrecto
+2) Mesa:3 -> Escrito:3    Respuesta: Cámara    -> Correcto
+
+Correctas   : 1
+Incorrectas : 1
+Puntaje     : 50.0%
+
+======================================================================
+

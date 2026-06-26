@@ -83,7 +83,7 @@ def cerrar_camara():
 
 def resetear_memoria():
     """
-    Borra la memoria temporal del detector.
+    Bora la memoria temporal del detector.
     Debe llamarse antes de evaluar un nuevo ejercicio.
     """
 
@@ -94,7 +94,7 @@ def resetear_memoria():
     ID_CONTADOR = 0
 
 # =========================================================
-# DETECCIÓN DEL NÚMERO
+# DETECCIÓN DEL NÚMERO (FILTRADO DE RUIDO Y DESEMPATE 3-8)
 # =========================================================
 
 def detectar_numero(frame):
@@ -105,70 +105,28 @@ def detectar_numero(frame):
     if frame is None:
         return ""
 
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    # 1. Transformación a escala de grises y binarización adaptativa estable
+    gris = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    mascara_negro = cv2.inRange(
-        hsv,
-        np.array([0, 0, 0]),
-        np.array([180, 255, 85])
+    mascara_total = cv2.adaptiveThreshold(
+        gris, 
+        255, 
+        cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+        cv2.THRESH_BINARY_INV, 
+        15, 
+        7
     )
-
-    mascara_azul = cv2.inRange(
-        hsv,
-        np.array([90, 45, 30]),
-        np.array([135, 255, 255])
-    )
-
-    mascara_rojo = cv2.bitwise_or(
-        cv2.inRange(
-            hsv,
-            np.array([0, 50, 30]),
-            np.array([12, 255, 255])
-        ),
-        cv2.inRange(
-            hsv,
-            np.array([155, 50, 30]),
-            np.array([180, 255, 255])
-        )
-    )
-
-    mascara_total = cv2.bitwise_or(mascara_negro, mascara_azul)
-    mascara_total = cv2.bitwise_or(mascara_total, mascara_rojo)
 
     mascara_roi = np.zeros_like(mascara_total)
     mascara_roi[Y_MIN_ROI:Y_MAX_ROI, X_MIN_ROI:X_MAX_ROI] = 255
+    mascara_limpia = cv2.bitwise_and(mascara_total, mascara_roi)
 
-    mascara_limpia = cv2.bitwise_and(
-        mascara_total,
-        mascara_roi
-    )
-
-    kernel = cv2.getStructuringElement(
-        cv2.MORPH_RECT,
-        (3, 3)
-    )
-
-    mascara_limpia = cv2.morphologyEx(
-        mascara_limpia,
-        cv2.MORPH_OPEN,
-        kernel,
-        iterations=1
-    )
-
-    mascara_limpia = cv2.morphologyEx(
-        mascara_limpia,
-        cv2.MORPH_CLOSE,
-        kernel,
-        iterations=1
-    )
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    mascara_limpia = cv2.morphologyEx(mascara_limpia, cv2.MORPH_CLOSE, kernel, iterations=1)
 
     pizarra_perfecta = cv2.bitwise_or(
         cv2.bitwise_and(frame, frame, mask=mascara_limpia),
-        cv2.bitwise_and(
-            np.ones_like(frame) * 255,
-            np.ones_like(frame) * 255,
-            mask=cv2.bitwise_not(mascara_limpia)
-        )
+        cv2.bitwise_and(np.ones_like(frame) * 255, np.ones_like(frame) * 255, mask=cv2.bitwise_not(mascara_limpia))
     )
 
     contornos, _ = cv2.findContours(
@@ -183,7 +141,11 @@ def detectar_numero(frame):
 
         x, y, w, h = cv2.boundingRect(c)
 
-        if not (12 < w < 110 and 6 < h < 110):
+        # ----------------------------------------------------------------------
+        # ANULACIÓN DE RUIDO PARÁSITO: Subimos drásticamente los límites mínimos
+        # para ignorar motas de polvo o trazos accidentales que confunden signos.
+        # ----------------------------------------------------------------------
+        if not (15 < w < 110 and 18 < h < 110):
             continue
 
         if (
@@ -194,6 +156,7 @@ def detectar_numero(frame):
         ):
             continue
 
+        relacion_aspecto = h / w
         centro_x = x + w // 2
         centro_y = y + h // 2
 
@@ -264,16 +227,51 @@ def detectar_numero(frame):
             pred = model.predict(
                 source=cuadrado,
                 verbose=False,
-                conf=0.35
+                conf=0.10
             )
 
             if len(pred) > 0 and pred[0].probs is not None:
 
-                idx = pred[0].probs.top1
+                top5_indices = pred[0].probs.top5
+                name_top1 = pred[0].names[top5_indices[0]]
+                pool_candidatos = [pred[0].names[idx] for idx in top5_indices]
 
-                voto = pred[0].names[idx]
+                voto_actual = name_top1
 
-                datos["historial_votos"].append(voto)
+                # ------------------------------------------------------
+                # MÁQUINA DE DESEMPATES RE-CALIBRADA
+                # ------------------------------------------------------
+                # 1. Filtro estricto para trazos puramente horizontales (signos)
+                if relacion_aspecto < 0.50 and w > 16:
+                    if relacion_aspecto < 0.28: voto_actual = "minus"
+                    else: voto_actual = "equal"
+                        
+                # 2. Desempate crítico: Rescate Quirúrgico del 3 vs 8
+                elif voto_actual in ["8", "3"] or ("8" in pool_candidatos[:2] and "3" in pool_candidatos[:2]):
+                    # Analizamos la densidad lateral izquierda del recorte binario original
+                    # Un '3' tiene un hueco vacío a la izquierda en su parte media, el '8' está cerrado.
+                    recorte_gris = mascara_limpia[y:y+h, x:x+w]
+                    alto_c, ancho_c = recorte_gris.shape
+                    
+                    # Analizar el cuadrante medio-izquierdo del número
+                    segmento_izq = recorte_gris[int(alto_c*0.35):int(alto_c*0.65), 0:int(ancho_c*0.35)]
+                    densidad_pixeles = np.sum(segmento_izq == 255)
+                    
+                    # Si el sector izquierdo está mayormente vacío, es un 3 real, no un 8
+                    if densidad_pixeles < (segmento_izq.size * 0.20):
+                        voto_actual = "3"
+                    else:
+                        voto_actual = "8"
+
+                # 3. Correcciones suaves complementarias
+                elif h > 20 and 1.2 <= relacion_aspecto <= 2.2:
+                    if voto_actual == "1" and "divide" in pool_candidatos[:2] and relacion_aspecto >= 1.6:
+                        voto_actual = "divide"
+                    elif voto_actual == "8" and "7" in pool_candidatos[:3]:
+                        voto_actual = "7"
+
+                if voto_actual != "":
+                    datos["historial_votos"].append(voto_actual)
 
         if datos["frames_visto"] >= 12 and datos["historial_votos"]:
 
@@ -307,6 +305,13 @@ def detectar_numero(frame):
             if memoria_pizarra[id_reg]["frames_ausente"] >= 15:
 
                 del memoria_pizarra[id_reg]
+
+    # --- RENDERIZADO VISUAL: Rectángulos de enclavamiento verdes ---
+    for id_reg, datos_box in memoria_pizarra.items():
+        if datos_box["char"] is not None:
+            bx, by, bw, bh = datos_box["bbox"]
+            cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (0, 255, 0), 2)
+            cv2.putText(frame, datos_box["char"], (bx, by - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
     # -----------------------------------------
     # Construcción del resultado
@@ -358,8 +363,10 @@ def evaluar_frame(frame):
     el botón Capturar en la interfaz
     o SPACE en el modo de prueba.
     """
-
-    return detectar_numero(frame)
+    cadena_final = ""
+    for _ in range(15):
+        cadena_final = detectar_numero(frame)
+    return cadena_final
 
 
 def limpiar_memoria():
@@ -389,7 +396,7 @@ if __name__ == "__main__":
         exit()
 
     print("=====================================")
-    print("      TEST DEL MODELO A")
+    print("      TEST DEL MODELO A CONFIRMADO")
     print("=====================================")
     print("ESPACIO -> Capturar y evaluar")
     print("ESPACIO -> Continuar cámara")
@@ -404,10 +411,6 @@ if __name__ == "__main__":
 
     while True:
 
-        # ---------------------------------
-        # Cámara en vivo
-        # ---------------------------------
-
         if not modo_captura:
 
             ret, frame = cap.read()
@@ -419,19 +422,11 @@ if __name__ == "__main__":
 
             dibujar_roi(frame_visual)
 
-        # ---------------------------------
-        # Imagen congelada
-        # ---------------------------------
-
         else:
 
             frame_visual = frame_congelado.copy()
 
             dibujar_roi(frame_visual)
-
-        # ---------------------------------
-        # Mostrar resultado
-        # ---------------------------------
 
         cv2.putText(
             frame_visual,
@@ -459,20 +454,10 @@ if __name__ == "__main__":
 
         tecla = cv2.waitKey(1) & 0xFF
 
-        # ---------------------------------
-        # Salir
-        # ---------------------------------
-
         if tecla == ord("q"):
             break
 
-        # ---------------------------------
-        # SPACE
-        # ---------------------------------
-
         elif tecla == 32:
-
-            # Pasar de cámara a captura
 
             if not modo_captura:
 
@@ -487,8 +472,6 @@ if __name__ == "__main__":
                 print("--------------------------------")
                 print("Resultado:", resultado)
                 print("--------------------------------")
-
-            # Volver a la cámara
 
             else:
 
