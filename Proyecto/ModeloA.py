@@ -150,6 +150,22 @@ def detectar_numero(frame):
 
     return "".join([e["char"] for e in elementos])
 
+def evaluar_frame(frame):
+    """
+    Evalúa UNA sola imagen (para SPACE o Tkinter)
+    """
+
+    resultado = detectar_numero(frame)
+    return resultado
+
+def evaluar_frame(frame):
+    """
+    Evalúa UNA sola imagen (para SPACE o Tkinter)
+    """
+
+    resultado = detectar_numero(frame)
+    return resultado
+
 if __name__ == "__main__":
 
     cap = cv2.VideoCapture(0)
