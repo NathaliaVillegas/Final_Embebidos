@@ -90,13 +90,7 @@ class Historial:
             for i, resultado in enumerate(self.resultados, start=1):
 
                 estado = "Correcto" if resultado["correcta"] else "Incorrecto"
-
-                archivo.write(
-                    f"{i}) "
-                    f"{resultado['ejercicio']}    "
-                    f"Respuesta: {resultado['respuesta']}    "
-                    f"-> {estado}\n"
-                )
+                archivo.write(f"{i}) " f"{resultado['ejercicio']}    " f"Respuesta: {resultado['respuesta']}    " f"-> {estado}\n")
 
             archivo.write("\n")
 

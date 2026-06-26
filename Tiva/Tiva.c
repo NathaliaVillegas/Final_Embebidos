@@ -13,9 +13,6 @@
 #include "driverlib/pwm.h"
 #include "driverlib/sysctl.h"
 
-//====================================================
-// VARIABLES GLOBALES 
-//====================================================
 
 volatile bool entregar_dulce = false;
 volatile uint32_t total = 0;
@@ -31,20 +28,12 @@ volatile bool juego_activo = false;
 char buffer[20];
 uint8_t idx = 0;
 
-//====================================================
-// DELAY
-//====================================================
-
 void Delay_ms(uint32_t ms){
     SysCtlDelay((120000000 / 3000) * ms);
 }
 
-//====================================================
-// INTERRUPCIÓN UART3
-//====================================================
 
-void UART3IntHandler(void)
-{
+void UART3IntHandler(void){
     uint32_t status = UARTIntStatus(UART3_BASE, true);
     UARTIntClear(UART3_BASE, status);
 
@@ -93,33 +82,18 @@ void UART3IntHandler(void)
     }
 }
 
-void DarDulce(void)
-{
-    // 0°
-    PWMPulseWidthSet(PWM0_BASE,
-                     PWM_OUT_1,
-                     1875);
+void DarDulce(void) {
 
+    PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, 1875);
     Delay_ms(500);
 
-    // 90°
-    PWMPulseWidthSet(PWM0_BASE,
-                     PWM_OUT_1,
-                     3750);
-
+    PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, 3750);
     Delay_ms(1200);
 
-    // volver
-    PWMPulseWidthSet(PWM0_BASE,
-                     PWM_OUT_1,
-                     1875);
-
+    PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, 1875);
     Delay_ms(1200);
 }
 
-//====================================================
-// CORRECTO
-//====================================================
 
 void EventoCorrecto(void){
     aciertos++;
@@ -140,9 +114,6 @@ void EventoCorrecto(void){
     GPIOPinWrite(GPIO_PORTK_BASE, 0x07, 0x00);
 }
 
-//====================================================
-// INCORRECTO
-//====================================================
 
 void EventoIncorrecto(void){
     respondidas++;
@@ -152,35 +123,28 @@ void EventoIncorrecto(void){
     GPIOPinWrite(GPIO_PORTM_BASE, 0x03, 0x00);
 }
 
-//====================================================
-// CONFIG
-//====================================================
 
 void ConfigurarHardware(void)
 {
     IntMasterDisable();
 
-    //====================
+    
     // PUERTO K
-    //====================
+    
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOK);
     while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOK));
 
     GPIOPinTypeGPIOOutput(GPIO_PORTK_BASE,  0x07);
     GPIOPinWrite(GPIO_PORTK_BASE, 0x07, 0x00);
 
-    //====================
     // PUERTO M
-    //====================
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOM);
     while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOM));
 
     GPIOPinTypeGPIOOutput(GPIO_PORTM_BASE, 0x03);
     GPIOPinWrite(GPIO_PORTM_BASE, 0x03, 0x00);
 
-    //====================
-    // UART3 Config
-    //====================
+    // UART3 
     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART3);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
     
@@ -193,7 +157,7 @@ void ConfigurarHardware(void)
     
     UARTConfigSetExpClk(UART3_BASE, 120000000, 9600, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
 
-    // Limpieza y activación de interrupciones para la UART3
+    
     UARTIntClear(UART3_BASE, UART_INT_RX | UART_INT_RT);
     UARTIntEnable(UART3_BASE, UART_INT_RX | UART_INT_RT);
     IntEnable(INT_UART3);
@@ -211,40 +175,21 @@ void ConfigurarServo(void)
     GPIOPinConfigure(GPIO_PF1_M0PWM1);
     GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_1);
 
-    // AQUÍ ESTÁ LA MAGIA: Aplicamos el divisor correctamente para la TM4C1294
     PWMClockSet(PWM0_BASE, PWM_SYSCLK_DIV_64);
 
-    // 120MHz / 64 = 1.875MHz
-    // 1.875MHz / 50Hz = 37500
+
     uint32_t periodo = 37500;
 
-    PWMGenConfigure(PWM0_BASE,
-                    PWM_GEN_0,
-                    PWM_GEN_MODE_DOWN);
+    PWMGenConfigure(PWM0_BASE, PWM_GEN_0, PWM_GEN_MODE_DOWN);
 
-    PWMGenPeriodSet(PWM0_BASE,
-                    PWM_GEN_0,
-                    periodo);
+    PWMGenPeriodSet(PWM0_BASE, PWM_GEN_0, periodo);
 
-    // Posición inicial (0° o 1 ms)
-    PWMPulseWidthSet(PWM0_BASE,
-                     PWM_OUT_1,
-                     1875);
-
-    PWMOutputState(PWM0_BASE,
-                   PWM_OUT_1_BIT,
-                   true);
-
-    PWMGenEnable(PWM0_BASE,
-                 PWM_GEN_0);
+    PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, 1875);
+    PWMOutputState(PWM0_BASE, PWM_OUT_1_BIT, true);
+    PWMGenEnable(PWM0_BASE, PWM_GEN_0);
 }
 
-//====================================================
-// MAIN
-//====================================================
-
-int main(void)
-{
+int main(void){
     SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ | SYSCTL_OSC_MAIN | SYSCTL_USE_PLL | SYSCTL_CFG_VCO_240), 120000000);
 
     ConfigurarHardware();

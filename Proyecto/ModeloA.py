@@ -2,26 +2,14 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 
-# =========================================================
-# MODELO YOLO
-# =========================================================
 ruta_modelo = "weights/best.pt"
 model = YOLO(ruta_modelo)
 
-# =========================================================
-# CÁMARA
-# =========================================================
 cam = None
 
-# =========================================================
-# MEMORIA GLOBAL
-# =========================================================
 memoria_pizarra = {}
 ID_CONTADOR = 0
 
-# =========================================================
-# REGIÓN DE INTERÉS (ROI)
-# =========================================================
 X_MIN_ROI = 20
 X_MAX_ROI = 620
 
@@ -29,14 +17,8 @@ Y_MIN_ROI = 20
 Y_MAX_ROI = 440
 
 
-# =========================================================
-# MANEJO DE CÁMARA
-# =========================================================
 
 def iniciar_camara(indice=0):
-    """
-    Abre la cámara.
-    """
 
     global cam
 
@@ -49,9 +31,6 @@ def iniciar_camara(indice=0):
 
 
 def obtener_frame():
-    """
-    Lee un frame de la cámara y dibuja el ROI.
-    """
 
     global cam
 
@@ -69,9 +48,6 @@ def obtener_frame():
 
 
 def cerrar_camara():
-    """
-    Libera la cámara.
-    """
 
     global cam
 
@@ -82,10 +58,6 @@ def cerrar_camara():
 
 
 def resetear_memoria():
-    """
-    Bora la memoria temporal del detector.
-    Debe llamarse antes de evaluar un nuevo ejercicio.
-    """
 
     global memoria_pizarra
     global ID_CONTADOR
@@ -93,9 +65,6 @@ def resetear_memoria():
     memoria_pizarra = {}
     ID_CONTADOR = 0
 
-# =========================================================
-# DETECCIÓN DEL NÚMERO (FILTRADO DE RUIDO Y DESEMPATE 3-8)
-# =========================================================
 
 def detectar_numero(frame):
 
@@ -105,7 +74,6 @@ def detectar_numero(frame):
     if frame is None:
         return ""
 
-    # 1. Transformación a escala de grises y binarización adaptativa estable
     gris = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     mascara_total = cv2.adaptiveThreshold(
@@ -141,10 +109,6 @@ def detectar_numero(frame):
 
         x, y, w, h = cv2.boundingRect(c)
 
-        # ----------------------------------------------------------------------
-        # ANULACIÓN DE RUIDO PARÁSITO: Subimos drásticamente los límites mínimos
-        # para ignorar motas de polvo o trazos accidentales que confunden signos.
-        # ----------------------------------------------------------------------
         if not (15 < w < 110 and 18 < h < 110):
             continue
 
@@ -238,32 +202,22 @@ def detectar_numero(frame):
 
                 voto_actual = name_top1
 
-                # ------------------------------------------------------
-                # MÁQUINA DE DESEMPATES RE-CALIBRADA
-                # ------------------------------------------------------
-                # 1. Filtro estricto para trazos puramente horizontales (signos)
                 if relacion_aspecto < 0.50 and w > 16:
                     if relacion_aspecto < 0.28: voto_actual = "minus"
                     else: voto_actual = "equal"
                         
-                # 2. Desempate crítico: Rescate Quirúrgico del 3 vs 8
                 elif voto_actual in ["8", "3"] or ("8" in pool_candidatos[:2] and "3" in pool_candidatos[:2]):
-                    # Analizamos la densidad lateral izquierda del recorte binario original
-                    # Un '3' tiene un hueco vacío a la izquierda en su parte media, el '8' está cerrado.
                     recorte_gris = mascara_limpia[y:y+h, x:x+w]
                     alto_c, ancho_c = recorte_gris.shape
                     
-                    # Analizar el cuadrante medio-izquierdo del número
                     segmento_izq = recorte_gris[int(alto_c*0.35):int(alto_c*0.65), 0:int(ancho_c*0.35)]
                     densidad_pixeles = np.sum(segmento_izq == 255)
                     
-                    # Si el sector izquierdo está mayormente vacío, es un 3 real, no un 8
                     if densidad_pixeles < (segmento_izq.size * 0.20):
                         voto_actual = "3"
                     else:
                         voto_actual = "8"
 
-                # 3. Correcciones suaves complementarias
                 elif h > 20 and 1.2 <= relacion_aspecto <= 2.2:
                     if voto_actual == "1" and "divide" in pool_candidatos[:2] and relacion_aspecto >= 1.6:
                         voto_actual = "divide"
@@ -292,9 +246,6 @@ def detectar_numero(frame):
 
             datos["char"] = mapa.get(ganador, ganador)
 
-    # -----------------------------------------
-    # Limpieza de memoria
-    # -----------------------------------------
 
     for id_reg in list(memoria_pizarra.keys()):
 
@@ -306,16 +257,12 @@ def detectar_numero(frame):
 
                 del memoria_pizarra[id_reg]
 
-    # --- RENDERIZADO VISUAL: Rectángulos de enclavamiento verdes ---
     for id_reg, datos_box in memoria_pizarra.items():
         if datos_box["char"] is not None:
             bx, by, bw, bh = datos_box["bbox"]
             cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (0, 255, 0), 2)
             cv2.putText(frame, datos_box["char"], (bx, by - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
-    # -----------------------------------------
-    # Construcción del resultado
-    # -----------------------------------------
 
     elementos = [
         d for d in memoria_pizarra.values()
@@ -333,16 +280,8 @@ def detectar_numero(frame):
 
     return resultado
 
-# =========================================================
-# FUNCIONES AUXILIARES
-# =========================================================
 
 def dibujar_roi(frame):
-    """
-    Dibuja el recuadro guía azul sobre el frame.
-    Puede llamarse tanto desde el modo de prueba
-    como desde la interfaz gráfica.
-    """
 
     cv2.rectangle(
         frame,
@@ -356,13 +295,6 @@ def dibujar_roi(frame):
 
 
 def evaluar_frame(frame):
-    """
-    Evalúa únicamente un frame.
-
-    Pensada para cuando el usuario pulse
-    el botón Capturar en la interfaz
-    o SPACE en el modo de prueba.
-    """
     cadena_final = ""
     for _ in range(15):
         cadena_final = detectar_numero(frame)
@@ -370,12 +302,6 @@ def evaluar_frame(frame):
 
 
 def limpiar_memoria():
-    """
-    Reinicia completamente la memoria del detector.
-
-    Debe llamarse cuando inicia una nueva pregunta,
-    para que no recuerde números anteriores.
-    """
 
     global memoria_pizarra
     global ID_CONTADOR
@@ -383,9 +309,6 @@ def limpiar_memoria():
     memoria_pizarra = {}
     ID_CONTADOR = 0
 
-# =========================================================
-# MODO DE PRUEBA
-# =========================================================
 
 if __name__ == "__main__":
 
@@ -395,13 +318,6 @@ if __name__ == "__main__":
         print("No se pudo abrir la cámara")
         exit()
 
-    print("=====================================")
-    print("      TEST DEL MODELO A CONFIRMADO")
-    print("=====================================")
-    print("ESPACIO -> Capturar y evaluar")
-    print("ESPACIO -> Continuar cámara")
-    print("Q -> Salir")
-    print("=====================================")
 
     modo_captura = False
 
@@ -469,9 +385,7 @@ if __name__ == "__main__":
 
                 modo_captura = True
 
-                print("--------------------------------")
                 print("Resultado:", resultado)
-                print("--------------------------------")
 
             else:
 

@@ -247,3 +247,885 @@ Puntaje     : 50.0%
 
 ======================================================================
 
+======================================================================
+USUARIO: f
+FECHA: 26/06/2026
+HORA DE INICIO: 13:30:38
+HORA DE FIN: 13:32:58
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: f
+FECHA: 26/06/2026
+HORA DE INICIO: 13:30:38
+HORA DE FIN: 13:32:59
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: l
+FECHA: 26/06/2026
+HORA DE INICIO: 13:33:22
+HORA DE FIN: 13:34:05
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: l
+FECHA: 26/06/2026
+HORA DE INICIO: 13:33:22
+HORA DE FIN: 13:34:07
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: l
+FECHA: 26/06/2026
+HORA DE INICIO: 13:34:31
+HORA DE FIN: 13:35:12
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: l
+FECHA: 26/06/2026
+HORA DE INICIO: 13:34:31
+HORA DE FIN: 13:35:13
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 26/06/2026
+HORA DE INICIO: 13:38:13
+HORA DE FIN: 13:41:48
+
+MODO: Modo 2
+INTENTOS: 1
+
+RESULTADOS
+
+1) 10 * 5 = 50    Respuesta: Cámara    -> Correcto
+2) 99 / 11 = 6    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 1
+Puntaje     : 50.0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 26/06/2026
+HORA DE INICIO: 13:38:13
+HORA DE FIN: 13:41:51
+
+MODO: Modo 2
+INTENTOS: 1
+
+RESULTADOS
+
+1) 10 * 5 = 50    Respuesta: Cámara    -> Correcto
+2) 99 / 11 = 6    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 1
+Puntaje     : 50.0%
+
+======================================================================
+
+======================================================================
+USUARIO: s
+FECHA: 26/06/2026
+HORA DE INICIO: 13:43:14
+HORA DE FIN: 13:43:30
+
+MODO: Modo 2
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: s
+FECHA: 26/06/2026
+HORA DE INICIO: 13:43:14
+HORA DE FIN: 13:44:05
+
+MODO: Modo 2
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: l
+FECHA: 26/06/2026
+HORA DE INICIO: 13:46:40
+HORA DE FIN: 13:47:11
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+1) Mesa:2 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+2) Mesa:3 -> Escrito:3    Respuesta: Cámara    -> Correcto
+3) 14 - 12 = 8    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 2
+Puntaje     : 33.33%
+
+======================================================================
+
+======================================================================
+USUARIO: l
+FECHA: 26/06/2026
+HORA DE INICIO: 13:46:40
+HORA DE FIN: 13:47:14
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+1) Mesa:2 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+2) Mesa:3 -> Escrito:3    Respuesta: Cámara    -> Correcto
+3) 14 - 12 = 8    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 2
+Puntaje     : 33.33%
+
+======================================================================
+
+======================================================================
+USUARIO: 1
+FECHA: 26/06/2026
+HORA DE INICIO: 13:56:32
+HORA DE FIN: 13:59:38
+
+MODO: Modo 1
+INTENTOS: 4
+
+RESULTADOS
+
+1) 18 * 20 = 360    Respuesta: Cámara    -> Correcto
+2) 3 * 16 = 48    Respuesta: Cámara    -> Correcto
+3) 12 * 16 = 492    Respuesta: Cámara    -> Incorrecto
+4) 8 * 14 = 4    Respuesta: Cámara    -> Incorrecto
+5) 9 + 17 = 26    Respuesta: Cámara    -> Correcto
+6) 5 + 2 = 8    Respuesta: Cámara    -> Incorrecto
+7) 12 + 12 = 24    Respuesta: Cámara    -> Correcto
+8) 9 / 3 = 39    Respuesta: Cámara    -> Incorrecto
+9) 11 + 1 = 3    Respuesta: Cámara    -> Incorrecto
+10) 14 + 9 = 8    Respuesta: Cámara    -> Incorrecto
+11) 19 - 18 = 4    Respuesta: Cámara    -> Incorrecto
+12) 13 * 7 = 99    Respuesta: Cámara    -> Incorrecto
+13) 17 + 19 = 97    Respuesta: Cámara    -> Incorrecto
+14) 17 * 12 = 20    Respuesta: Cámara    -> Incorrecto
+15) 9 - 4 = 5    Respuesta: Cámara    -> Correcto
+
+Correctas   : 5
+Incorrectas : 10
+Puntaje     : 33.33%
+
+======================================================================
+
+======================================================================
+USUARIO: 1
+FECHA: 26/06/2026
+HORA DE INICIO: 13:56:32
+HORA DE FIN: 13:59:50
+
+MODO: Modo 1
+INTENTOS: 4
+
+RESULTADOS
+
+1) 18 * 20 = 360    Respuesta: Cámara    -> Correcto
+2) 3 * 16 = 48    Respuesta: Cámara    -> Correcto
+3) 12 * 16 = 492    Respuesta: Cámara    -> Incorrecto
+4) 8 * 14 = 4    Respuesta: Cámara    -> Incorrecto
+5) 9 + 17 = 26    Respuesta: Cámara    -> Correcto
+6) 5 + 2 = 8    Respuesta: Cámara    -> Incorrecto
+7) 12 + 12 = 24    Respuesta: Cámara    -> Correcto
+8) 9 / 3 = 39    Respuesta: Cámara    -> Incorrecto
+9) 11 + 1 = 3    Respuesta: Cámara    -> Incorrecto
+10) 14 + 9 = 8    Respuesta: Cámara    -> Incorrecto
+11) 19 - 18 = 4    Respuesta: Cámara    -> Incorrecto
+12) 13 * 7 = 99    Respuesta: Cámara    -> Incorrecto
+13) 17 + 19 = 97    Respuesta: Cámara    -> Incorrecto
+14) 17 * 12 = 20    Respuesta: Cámara    -> Incorrecto
+15) 9 - 4 = 5    Respuesta: Cámara    -> Correcto
+
+Correctas   : 5
+Incorrectas : 10
+Puntaje     : 33.33%
+
+======================================================================
+
+======================================================================
+USUARIO: ol
+FECHA: 26/06/2026
+HORA DE INICIO: 14:00:14
+HORA DE FIN: 14:00:35
+
+MODO: Modo 1
+INTENTOS: 3
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: ol
+FECHA: 26/06/2026
+HORA DE INICIO: 14:00:14
+HORA DE FIN: 14:00:36
+
+MODO: Modo 1
+INTENTOS: 3
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: pato
+FECHA: 26/06/2026
+HORA DE INICIO: 14:03:45
+HORA DE FIN: 14:04:12
+
+MODO: Modo 2
+INTENTOS: 1
+
+RESULTADOS
+
+1) 17 - 4 = 13    Respuesta: Cámara    -> Correcto
+2) 6 * 5 = 3    Respuesta: Cámara    -> Incorrecto
+3) 9 + 1 = 40    Respuesta: Cámara    -> Incorrecto
+4) Mesa:0 -> Escrito:1    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 3
+Puntaje     : 25.0%
+
+======================================================================
+
+======================================================================
+USUARIO: pato
+FECHA: 26/06/2026
+HORA DE INICIO: 14:03:45
+HORA DE FIN: 14:04:14
+
+MODO: Modo 2
+INTENTOS: 1
+
+RESULTADOS
+
+1) 17 - 4 = 13    Respuesta: Cámara    -> Correcto
+2) 6 * 5 = 3    Respuesta: Cámara    -> Incorrecto
+3) 9 + 1 = 40    Respuesta: Cámara    -> Incorrecto
+4) Mesa:0 -> Escrito:1    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 3
+Puntaje     : 25.0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:04:39
+HORA DE FIN: 14:04:55
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:04:39
+HORA DE FIN: 14:05:00
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: tha
+FECHA: 26/06/2026
+HORA DE INICIO: 14:06:23
+HORA DE FIN: 14:07:53
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+1) 100 / 20 = 3    Respuesta: Cámara    -> Incorrecto
+2) 160 / 20 = 87    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 2
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: tha
+FECHA: 26/06/2026
+HORA DE INICIO: 14:06:23
+HORA DE FIN: 14:07:53
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+1) 100 / 20 = 3    Respuesta: Cámara    -> Incorrecto
+2) 160 / 20 = 87    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 2
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:09:01
+HORA DE FIN: 14:09:05
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:09:01
+HORA DE FIN: 14:09:05
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:10:06
+HORA DE FIN: 14:12:05
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+1) 4 - 15 = 41    Respuesta: Cámara    -> Incorrecto
+2) 42 / 6 = 7    Respuesta: Cámara    -> Correcto
+
+Correctas   : 1
+Incorrectas : 1
+Puntaje     : 50.0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:10:06
+HORA DE FIN: 14:12:23
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+1) 4 - 15 = 41    Respuesta: Cámara    -> Incorrecto
+2) 42 / 6 = 7    Respuesta: Cámara    -> Correcto
+
+Correctas   : 1
+Incorrectas : 1
+Puntaje     : 50.0%
+
+======================================================================
+
+======================================================================
+USUARIO: jks
+FECHA: 26/06/2026
+HORA DE INICIO: 14:23:49
+HORA DE FIN: 14:33:17
+
+MODO: Modo 2
+INTENTOS: 5
+
+RESULTADOS
+
+1) 17 * 13 = 292    Respuesta: Cámara    -> Incorrecto
+2) 6 * 6 = 36    Respuesta: Cámara    -> Correcto
+3) 16 * 20 = 520    Respuesta: Cámara    -> Incorrecto
+4) Mesa:2 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+5) Mesa:1 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+6) Mesa:2 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+7) Mesa:2 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+8) Mesa:1 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+9) Mesa:1 -> Escrito:1    Respuesta: Cámara    -> Correcto
+10) Mesa:2 -> Escrito:4    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 2
+Incorrectas : 8
+Puntaje     : 20.0%
+
+======================================================================
+
+======================================================================
+USUARIO: jks
+FECHA: 26/06/2026
+HORA DE INICIO: 14:23:49
+HORA DE FIN: 14:33:17
+
+MODO: Modo 2
+INTENTOS: 5
+
+RESULTADOS
+
+1) 17 * 13 = 292    Respuesta: Cámara    -> Incorrecto
+2) 6 * 6 = 36    Respuesta: Cámara    -> Correcto
+3) 16 * 20 = 520    Respuesta: Cámara    -> Incorrecto
+4) Mesa:2 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+5) Mesa:1 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+6) Mesa:2 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+7) Mesa:2 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+8) Mesa:1 -> Escrito:3    Respuesta: Cámara    -> Incorrecto
+9) Mesa:1 -> Escrito:1    Respuesta: Cámara    -> Correcto
+10) Mesa:2 -> Escrito:4    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 2
+Incorrectas : 8
+Puntaje     : 20.0%
+
+======================================================================
+
+======================================================================
+USUARIO: jhoi
+FECHA: 26/06/2026
+HORA DE INICIO: 14:33:47
+HORA DE FIN: 14:37:05
+
+MODO: Modo 2
+INTENTOS: 3
+
+RESULTADOS
+
+1) Mesa:1 -> Escrito:5    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: jhoi
+FECHA: 26/06/2026
+HORA DE INICIO: 14:33:47
+HORA DE FIN: 14:37:06
+
+MODO: Modo 2
+INTENTOS: 3
+
+RESULTADOS
+
+1) Mesa:1 -> Escrito:5    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 26/06/2026
+HORA DE INICIO: 14:48:50
+HORA DE FIN: 14:56:00
+
+MODO: Modo 1
+INTENTOS: 5
+
+RESULTADOS
+
+1) 19 * 7 = 435    Respuesta: Cámara    -> Incorrecto
+2) 11 + 19 = 50    Respuesta: Cámara    -> Incorrecto
+3) 9 - 3 = 6    Respuesta: Cámara    -> Correcto
+4) 7 + 12 = 8    Respuesta: Cámara    -> Incorrecto
+5) 16 + 14 = 50    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 4
+Puntaje     : 20.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 26/06/2026
+HORA DE INICIO: 14:48:50
+HORA DE FIN: 14:56:05
+
+MODO: Modo 1
+INTENTOS: 5
+
+RESULTADOS
+
+1) 19 * 7 = 435    Respuesta: Cámara    -> Incorrecto
+2) 11 + 19 = 50    Respuesta: Cámara    -> Incorrecto
+3) 9 - 3 = 6    Respuesta: Cámara    -> Correcto
+4) 7 + 12 = 8    Respuesta: Cámara    -> Incorrecto
+5) 16 + 14 = 50    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 1
+Incorrectas : 4
+Puntaje     : 20.0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:57:09
+HORA DE FIN: 14:58:24
+
+MODO: Modo 1
+INTENTOS: 5
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:57:09
+HORA DE FIN: 14:58:29
+
+MODO: Modo 1
+INTENTOS: 5
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:59:01
+HORA DE FIN: 14:59:27
+
+MODO: Modo 1
+INTENTOS: 5
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: thais
+FECHA: 26/06/2026
+HORA DE INICIO: 14:59:01
+HORA DE FIN: 14:59:34
+
+MODO: Modo 1
+INTENTOS: 5
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: gs
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 15:00:02
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: gs
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 15:00:03
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: swq
+FECHA: 26/06/2026
+HORA DE INICIO: 15:00:27
+HORA DE FIN: 15:01:33
+
+MODO: Modo 1
+INTENTOS: 5
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: swq
+FECHA: 26/06/2026
+HORA DE INICIO: 15:00:27
+HORA DE FIN: 15:01:34
+
+MODO: Modo 1
+INTENTOS: 5
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: j
+FECHA: 26/06/2026
+HORA DE INICIO: 15:06:02
+HORA DE FIN: 15:09:49
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+1) 14 * 1 = 8    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: j
+FECHA: 26/06/2026
+HORA DE INICIO: 15:06:02
+HORA DE FIN: 15:09:49
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+1) 14 * 1 = 8    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: hiold
+FECHA: 26/06/2026
+HORA DE INICIO: 15:10:16
+HORA DE FIN: 15:11:34
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: hiold
+FECHA: 26/06/2026
+HORA DE INICIO: 15:10:16
+HORA DE FIN: 15:14:30
+
+MODO: Modo 1
+INTENTOS: 2
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+

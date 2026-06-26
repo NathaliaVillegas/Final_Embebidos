@@ -54,7 +54,7 @@ def contar_objetos(frame, debug=False):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (7, 7), 0)
 
-    _, thresh = cv2.threshold(blur, 120, 255, cv2.THRESH_BINARY_INV)
+    _, thresh = cv2.threshold(blur, 190, 255, cv2.THRESH_BINARY_INV)
 
     kernel = np.ones((5, 5), np.uint8)
 

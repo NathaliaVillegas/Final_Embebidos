@@ -2,7 +2,6 @@ import random
 
 OPERADORES = ["+", "-", "*", "/"]
 
-
 def generar_operacion():
 
     while True:
@@ -12,14 +11,12 @@ def generar_operacion():
         operador = random.choice(OPERADORES)
 
         if operador == "/":
-
             num2 = random.randint(1, 20)
 
-            if num2 == 0:
+            if num2 == 0: 
                 continue
 
             num1 = num2 * random.randint(1, 10)
-
             resultado = num1 / num2
 
         else:
@@ -32,8 +29,10 @@ def generar_operacion():
                 continue
             resultado = int(resultado)
 
+        if resultado < 0:
+            continue
+
         return f"{num1} {operador} {num2}", resultado
 
 def generar_lote(cantidad):
-
     return [generar_operacion() for _ in range(cantidad)]
