@@ -152,32 +152,65 @@ def detectar_numero(frame):
 
 if __name__ == "__main__":
 
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
         print("No se pudo abrir la cámara")
         exit()
 
-    print("Modo prueba ModeloA activo (presiona Q para salir)")
+    print("MODELO A TEST")
+    print("SPACE = capturar frame")
+    print("Q = salir")
+
+    frame_capturado = None
+    modo_freeze = False
 
     while True:
         ret, frame = cap.read()
         if not ret:
             continue
 
-        resultado = detectar_numero(frame)
+        frame_visual = frame.copy()
 
-        cv2.putText(frame, f"Resultado: {resultado}",
+        # ROI azul SIEMPRE
+        frame_visual = dibujar_roi(frame_visual)
+
+        # Si no está congelado → procesar en vivo
+        if not modo_freeze:
+            resultado = detectar_numero(frame_visual)
+        else:
+            resultado = detectar_numero(frame_capturado)
+
+        cv2.putText(frame_visual, f"Resultado: {resultado}",
                     (30, 50),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1,
                     (0, 255, 0),
                     2)
 
-        cv2.imshow("TEST MODELO A", frame)
+        if modo_freeze:
+            cv2.putText(frame_visual, "CAPTURA FIJA (SPACE para continuar)",
+                        (30, 90),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.7,
+                        (0, 0, 255),
+                        2)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        cv2.imshow("MODELO A TEST", frame_visual)
+
+        key = cv2.waitKey(1) & 0xFF
+
+        # SALIR
+        if key == ord('q'):
             break
+
+        # CAPTURA FRAME
+        elif key == 32:  # SPACE
+            if not modo_freeze:
+                frame_capturado = frame.copy()
+                modo_freeze = True
+            else:
+                modo_freeze = False
 
     cap.release()
     cv2.destroyAllWindows()
