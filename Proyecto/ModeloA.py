@@ -3,55 +3,42 @@ import numpy as np
 from ultralytics import YOLO
 
 # =========================================================
-# MODELO (se carga una sola vez)
+# MODELO
 # =========================================================
 ruta_modelo = "runs/classify/runs/pizarra/clasificador_math_pro/weights/best.pt"
 model = YOLO(ruta_modelo)
 
 # =========================================================
-# MEMORIA GLOBAL (tracking entre frames)
+# MEMORIA GLOBAL
 # =========================================================
 memoria_pizarra = {}
 ID_CONTADOR = 0
 
-# ROI
 X_MIN_ROI, X_MAX_ROI = 20, 620
 Y_MIN_ROI, Y_MAX_ROI = 20, 440
 
 
 # =========================================================
-# FUNCIÓN PRINCIPAL
+# FUNCIÓN USABLE DESDE MAIN / TKINTER
 # =========================================================
 def detectar_numero(frame):
-    """
-    Recibe frame (OpenCV)
-    Devuelve string con número/expresión detectada
-    """
-
     global memoria_pizarra, ID_CONTADOR
 
     if frame is None:
         return ""
 
-    # =====================================================
-    # 1. PREPROCESAMIENTO (IGUAL A TU CÓDIGO ORIGINAL)
-    # =====================================================
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     mascara_negro = cv2.inRange(hsv, np.array([0, 0, 0]), np.array([180, 255, 85]))
     mascara_azul = cv2.inRange(hsv, np.array([90, 45, 30]), np.array([135, 255, 255]))
-
     mascara_rojo = cv2.bitwise_or(
         cv2.inRange(hsv, np.array([0, 50, 30]), np.array([12, 255, 255])),
         cv2.inRange(hsv, np.array([155, 50, 30]), np.array([180, 255, 255]))
     )
 
-    mascara_total = cv2.bitwise_or(
-        cv2.bitwise_or(mascara_negro, mascara_azul),
-        mascara_rojo
-    )
+    mascara_total = cv2.bitwise_or(mascara_negro, mascara_azul)
+    mascara_total = cv2.bitwise_or(mascara_total, mascara_rojo)
 
-    # ROI
     mascara_roi = np.zeros_like(mascara_total)
     mascara_roi[Y_MIN_ROI:Y_MAX_ROI, X_MIN_ROI:X_MAX_ROI] = 255
 
@@ -61,32 +48,18 @@ def detectar_numero(frame):
     mascara_limpia = cv2.morphologyEx(mascara_limpia, cv2.MORPH_OPEN, kernel, iterations=1)
     mascara_limpia = cv2.morphologyEx(mascara_limpia, cv2.MORPH_CLOSE, kernel, iterations=1)
 
-    # Fondo limpio para recortes
     pizarra_perfecta = cv2.bitwise_or(
         cv2.bitwise_and(frame, frame, mask=mascara_limpia),
-        cv2.bitwise_and(
-            np.ones_like(frame) * 255,
-            np.ones_like(frame) * 255,
-            mask=cv2.bitwise_not(mascara_limpia)
-        )
+        cv2.bitwise_and(np.ones_like(frame) * 255, np.ones_like(frame) * 255, mask=cv2.bitwise_not(mascara_limpia))
     )
 
-    # =====================================================
-    # 2. DETECCIÓN DE CONTORNOS
-    # =====================================================
-    contornos, _ = cv2.findContours(
-        mascara_limpia,
-        cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_SIMPLE
-    )
-
+    contornos, _ = cv2.findContours(mascara_limpia, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     casillas_actualizadas = set()
 
     for c in contornos:
 
         x, y, w, h = cv2.boundingRect(c)
 
-        # filtros básicos
         if not (12 < w < 110 and 6 < h < 110):
             continue
 
@@ -97,14 +70,10 @@ def detectar_numero(frame):
         centro_x = x + w // 2
         centro_y = y + h // 2
 
-        # =================================================
-        # 3. TRACKING DE OBJETOS
-        # =================================================
         id_asociado = None
 
         for id_reg, datos in memoria_pizarra.items():
             bx, by, bw, bh = datos["bbox"]
-
             if abs(centro_x - (bx + bw // 2)) < 25 and abs(centro_y - (by + bh // 2)) < 25:
                 id_asociado = id_reg
                 break
@@ -131,26 +100,20 @@ def detectar_numero(frame):
 
         datos["frames_visto"] += 1
 
-        # =================================================
-        # 4. RECORTE + YOLO
-        # =================================================
         margen = 10
-
         recorte = pizarra_perfecta[
-            max(0, y - margen):min(frame.shape[0], y + h + margen),
-            max(0, x - margen):min(frame.shape[1], x + w + margen)
+            max(0, y-margen):min(frame.shape[0], y+h+margen),
+            max(0, x-margen):min(frame.shape[1], x+w+margen)
         ]
 
         if recorte.size > 0:
-
             h2, w2, _ = recorte.shape
             max_dim = max(h2, w2)
 
             cuadrado = np.ones((max_dim, max_dim, 3), dtype=np.uint8) * 255
-
             cuadrado[
-                (max_dim - h2)//2:(max_dim - h2)//2 + h2,
-                (max_dim - w2)//2:(max_dim - w2)//2 + w2
+                (max_dim-h2)//2:(max_dim-h2)//2+h2,
+                (max_dim-w2)//2:(max_dim-w2)//2+w2
             ] = recorte
 
             pred = model.predict(source=cuadrado, verbose=False, conf=0.35)
@@ -160,11 +123,7 @@ def detectar_numero(frame):
                 voto = pred[0].names[idx]
                 datos["historial_votos"].append(voto)
 
-        # =================================================
-        # 5. ESTABILIZACIÓN (igual idea original)
-        # =================================================
         if datos["frames_visto"] >= 12 and datos["historial_votos"]:
-
             ganador = max(set(datos["historial_votos"]),
                           key=datos["historial_votos"].count)
 
@@ -180,27 +139,45 @@ def detectar_numero(frame):
 
             datos["char"] = mapa.get(ganador, ganador)
 
-    # =====================================================
-    # 6. LIMPIEZA DE OBJETOS PERDIDOS
-    # =====================================================
     for id_reg in list(memoria_pizarra.keys()):
-
         if id_reg not in casillas_actualizadas:
             memoria_pizarra[id_reg]["frames_ausente"] += 1
-
             if memoria_pizarra[id_reg]["frames_ausente"] >= 15:
                 del memoria_pizarra[id_reg]
 
-    # =====================================================
-    # 7. SALIDA FINAL (SOLO STRING)
-    # =====================================================
-    elementos = [
-        d for d in memoria_pizarra.values()
-        if d["char"] is not None
-    ]
-
+    elementos = [d for d in memoria_pizarra.values() if d["char"] is not None]
     elementos = sorted(elementos, key=lambda k: k["bbox"][0])
 
-    resultado = "".join([e["char"] for e in elementos])
+    return "".join([e["char"] for e in elementos])
 
-    return resultado
+if __name__ == "__main__":
+
+    cap = cv2.VideoCapture(1)
+
+    if not cap.isOpened():
+        print("No se pudo abrir la cámara")
+        exit()
+
+    print("Modo prueba ModeloA activo (presiona Q para salir)")
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            continue
+
+        resultado = detectar_numero(frame)
+
+        cv2.putText(frame, f"Resultado: {resultado}",
+                    (30, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    1,
+                    (0, 255, 0),
+                    2)
+
+        cv2.imshow("TEST MODELO A", frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()

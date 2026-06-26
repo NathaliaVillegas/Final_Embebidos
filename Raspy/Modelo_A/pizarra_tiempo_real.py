@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 
-ruta_modelo = "runs/classify/runs/pizarra/clasificador_math_pro/weights/best.pt"
+ruta_modelo = "weights/best.pt"
 model = YOLO(ruta_modelo)
 
 cap = cv2.VideoCapture(1)
