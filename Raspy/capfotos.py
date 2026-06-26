@@ -2,9 +2,6 @@ import cv2
 import os
 import re
 
-# =========================
-# CONFIG
-# =========================
 
 url = "http://192.168.26.2:8080/video"
 
@@ -32,17 +29,10 @@ classes = {
     ord(')'): "close_paren"
 }
 
-# =========================
-# CREAR CARPETAS
-# =========================
 
 for cls in classes.values():
     os.makedirs(os.path.join(SAVE_DIR, cls), exist_ok=True)
 
-# =========================
-# FUNCION PARA OBTENER
-# EL SIGUIENTE NUMERO
-# =========================
 
 def next_index(folder, prefix):
 
@@ -58,9 +48,6 @@ def next_index(folder, prefix):
 
     return max_num + 1
 
-# =========================
-# CAMARA
-# =========================
 
 cap = cv2.VideoCapture(url)
 
@@ -89,11 +76,9 @@ while True:
 
     key = cv2.waitKey(1) & 0xFF
 
-    # salir
     if key == ord('q'):
         break
 
-    # guardar imagen
     if key in classes:
 
         cls = classes[key]
