@@ -150,13 +150,15 @@ def detectar_numero(frame):
 
     return "".join([e["char"] for e in elementos])
 
-def evaluar_frame(frame):
-    """
-    Evalúa UNA sola imagen (para SPACE o Tkinter)
-    """
-
-    resultado = detectar_numero(frame)
-    return resultado
+def dibujar_roi(frame):
+    cv2.rectangle(
+        frame,
+        (X_MIN_ROI, Y_MIN_ROI),
+        (X_MAX_ROI, Y_MAX_ROI),
+        (255, 0, 0),
+        2
+    )
+    return frame
 
 def evaluar_frame(frame):
     """
