@@ -9,7 +9,7 @@ ruta_modelo = "weights/best.pt"
 model = YOLO(ruta_modelo)
 
 # =========================================================
-# MEMORIA
+# MEMORIA GLOBAL
 # =========================================================
 memoria_pizarra = {}
 ID_CONTADOR = 0
@@ -19,28 +19,13 @@ Y_MIN_ROI, Y_MAX_ROI = 20, 440
 
 
 # =========================================================
-# UTILIDAD
-# =========================================================
-def filtrar_numeros(texto):
-    return "".join([c for c in texto if c.isdigit()])
-
-
-def dibujar_roi(frame):
-    cv2.rectangle(
-        frame,
-        (X_MIN_ROI, Y_MIN_ROI),
-        (X_MAX_ROI, Y_MAX_ROI),
-        (255, 0, 0),
-        2
-    )
-    return frame
-
-
-# =========================================================
-# DETECCIÓN PRINCIPAL (STREAM)
+# FUNCIÓN USABLE DESDE MAIN / TKINTER
 # =========================================================
 def detectar_numero(frame):
     global memoria_pizarra, ID_CONTADOR
+
+    if frame is None:
+        return ""
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -62,6 +47,11 @@ def detectar_numero(frame):
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
     mascara_limpia = cv2.morphologyEx(mascara_limpia, cv2.MORPH_OPEN, kernel, iterations=1)
     mascara_limpia = cv2.morphologyEx(mascara_limpia, cv2.MORPH_CLOSE, kernel, iterations=1)
+
+    pizarra_perfecta = cv2.bitwise_or(
+        cv2.bitwise_and(frame, frame, mask=mascara_limpia),
+        cv2.bitwise_and(np.ones_like(frame) * 255, np.ones_like(frame) * 255, mask=cv2.bitwise_not(mascara_limpia))
+    )
 
     contornos, _ = cv2.findContours(mascara_limpia, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     casillas_actualizadas = set()
@@ -111,7 +101,7 @@ def detectar_numero(frame):
         datos["frames_visto"] += 1
 
         margen = 10
-        recorte = frame[
+        recorte = pizarra_perfecta[
             max(0, y-margen):min(frame.shape[0], y+h+margen),
             max(0, x-margen):min(frame.shape[1], x+w+margen)
         ]
@@ -149,23 +139,35 @@ def detectar_numero(frame):
 
             datos["char"] = mapa.get(ganador, ganador)
 
-    # limpieza
     for id_reg in list(memoria_pizarra.keys()):
         if id_reg not in casillas_actualizadas:
             memoria_pizarra[id_reg]["frames_ausente"] += 1
             if memoria_pizarra[id_reg]["frames_ausente"] >= 15:
                 del memoria_pizarra[id_reg]
 
-    # salida RAW
     elementos = [d for d in memoria_pizarra.values() if d["char"] is not None]
     elementos = sorted(elementos, key=lambda k: k["bbox"][0])
 
-    return filtrar_numeros("".join([e["char"] for e in elementos]))
+    return "".join([e["char"] for e in elementos])
 
+def dibujar_roi(frame):
+    cv2.rectangle(
+        frame,
+        (X_MIN_ROI, Y_MIN_ROI),
+        (X_MAX_ROI, Y_MAX_ROI),
+        (255, 0, 0),
+        2
+    )
+    return frame
 
-# =========================================================
-# MODO PRUEBA
-# =========================================================
+def evaluar_frame(frame):
+    """
+    Evalúa UNA sola imagen (para SPACE o Tkinter)
+    """
+
+    resultado = detectar_numero(frame)
+    return resultado
+
 if __name__ == "__main__":
 
     cap = cv2.VideoCapture(0)
@@ -175,44 +177,58 @@ if __name__ == "__main__":
         exit()
 
     print("MODELO A TEST")
-    print("SPACE = freeze frame")
+    print("SPACE = capturar frame")
     print("Q = salir")
 
-    freeze = False
-    frame_guardado = None
+    frame_capturado = None
+    modo_freeze = False
 
     while True:
         ret, frame = cap.read()
         if not ret:
             continue
 
-        display = dibujar_roi(frame.copy())
+        frame_visual = frame.copy()
 
-        if not freeze:
-            resultado = detectar_numero(frame)
+        # ROI azul SIEMPRE
+        frame_visual = dibujar_roi(frame_visual)
+
+        # Si no está congelado → procesar en vivo
+        if not modo_freeze:
+            resultado = detectar_numero(frame_visual)
         else:
-            resultado = detectar_numero(frame_guardado)
+            resultado = detectar_numero(frame_capturado)
 
-        cv2.putText(display, f"NUM: {resultado}",
+        cv2.putText(frame_visual, f"Resultado: {resultado}",
                     (30, 50),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1,
                     (0, 255, 0),
                     2)
 
-        cv2.imshow("MODELO A", display)
+        if modo_freeze:
+            cv2.putText(frame_visual, "CAPTURA FIJA (SPACE para continuar)",
+                        (30, 90),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.7,
+                        (0, 0, 255),
+                        2)
+
+        cv2.imshow("MODELO A TEST", frame_visual)
 
         key = cv2.waitKey(1) & 0xFF
 
+        # SALIR
         if key == ord('q'):
             break
 
-        if key == 32:  # SPACE
-            if not freeze:
-                frame_guardado = frame.copy()
-                freeze = True
+        # CAPTURA FRAME
+        elif key == 32:  # SPACE
+            if not modo_freeze:
+                frame_capturado = frame.copy()
+                modo_freeze = True
             else:
-                freeze = False
+                modo_freeze = False
 
     cap.release()
     cv2.destroyAllWindows()
