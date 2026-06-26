@@ -6,4 +6,5 @@ gcc/Tiva.o: Tiva.c /usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h \
  /home/nath/Documentos/SDKs/Tiva/TivaWare/driverlib/gpio.h \
  /home/nath/Documentos/SDKs/Tiva/TivaWare/driverlib/uart.h \
  /home/nath/Documentos/SDKs/Tiva/TivaWare/driverlib/pin_map.h \
- /home/nath/Documentos/SDKs/Tiva/TivaWare/driverlib/interrupt.h
+ /home/nath/Documentos/SDKs/Tiva/TivaWare/driverlib/interrupt.h \
+ /home/nath/Documentos/SDKs/Tiva/TivaWare/driverlib/pwm.h

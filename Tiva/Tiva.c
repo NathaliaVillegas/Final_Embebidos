@@ -10,10 +10,14 @@
 #include "driverlib/pin_map.h"
 #include "driverlib/interrupt.h"
 
+#include "driverlib/pwm.h"
+#include "driverlib/sysctl.h"
+
 //====================================================
 // VARIABLES GLOBALES 
 //====================================================
 
+volatile bool entregar_dulce = false;
 volatile uint32_t total = 0;
 volatile uint32_t respondidas = 0;
 volatile uint32_t aciertos = 0;
@@ -21,8 +25,19 @@ volatile bool evento_r = false;
 volatile bool evento_w = false;
 volatile bool juego_activo = false;
 
+#define PWM_DIVISOR 64
+#define SERVO_FREQ 50
+
 char buffer[20];
 uint8_t idx = 0;
+
+//====================================================
+// DELAY
+//====================================================
+
+void Delay_ms(uint32_t ms){
+    SysCtlDelay((120000000 / 3000) * ms);
+}
 
 //====================================================
 // INTERRUPCIÓN UART3
@@ -78,20 +93,28 @@ void UART3IntHandler(void)
     }
 }
 
-//====================================================
-// DELAY
-//====================================================
+void DarDulce(void)
+{
+    // 0°
+    PWMPulseWidthSet(PWM0_BASE,
+                     PWM_OUT_1,
+                     1875);
 
-void Delay_ms(uint32_t ms){
-    SysCtlDelay((120000000 / 3000) * ms);
-}
+    Delay_ms(500);
 
-//====================================================
-// LEDS INTERNOS PN0-PN3
-//====================================================
+    // 90°
+    PWMPulseWidthSet(PWM0_BASE,
+                     PWM_OUT_1,
+                     3750);
 
-void MostrarBinario(uint32_t numero){
-    GPIOPinWrite(GPIO_PORTN_BASE, 0x0F, numero);
+    Delay_ms(1200);
+
+    // volver
+    PWMPulseWidthSet(PWM0_BASE,
+                     PWM_OUT_1,
+                     1875);
+
+    Delay_ms(1200);
 }
 
 //====================================================
@@ -101,8 +124,6 @@ void MostrarBinario(uint32_t numero){
 void EventoCorrecto(void){
     aciertos++;
     respondidas++;
-
-    MostrarBinario(aciertos);
 
     GPIOPinWrite(GPIO_PORTK_BASE, 0x07, 0x01);
     Delay_ms(300);
@@ -138,15 +159,6 @@ void EventoIncorrecto(void){
 void ConfigurarHardware(void)
 {
     IntMasterDisable();
-
-    //====================
-    // PUERTO N
-    //====================
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);
-    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPION));
-
-    GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, 0x0F);
-    GPIOPinWrite(GPIO_PORTN_BASE, 0x0F, 0x00);
 
     //====================
     // PUERTO K
@@ -187,6 +199,46 @@ void ConfigurarHardware(void)
     IntEnable(INT_UART3);
 }
 
+void ConfigurarServo(void)
+{
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+
+    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_PWM0));
+    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF));
+
+    // PF1 -> M0PWM1
+    GPIOPinConfigure(GPIO_PF1_M0PWM1);
+    GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_1);
+
+    // AQUÍ ESTÁ LA MAGIA: Aplicamos el divisor correctamente para la TM4C1294
+    PWMClockSet(PWM0_BASE, PWM_SYSCLK_DIV_64);
+
+    // 120MHz / 64 = 1.875MHz
+    // 1.875MHz / 50Hz = 37500
+    uint32_t periodo = 37500;
+
+    PWMGenConfigure(PWM0_BASE,
+                    PWM_GEN_0,
+                    PWM_GEN_MODE_DOWN);
+
+    PWMGenPeriodSet(PWM0_BASE,
+                    PWM_GEN_0,
+                    periodo);
+
+    // Posición inicial (0° o 1 ms)
+    PWMPulseWidthSet(PWM0_BASE,
+                     PWM_OUT_1,
+                     1875);
+
+    PWMOutputState(PWM0_BASE,
+                   PWM_OUT_1_BIT,
+                   true);
+
+    PWMGenEnable(PWM0_BASE,
+                 PWM_GEN_0);
+}
+
 //====================================================
 // MAIN
 //====================================================
@@ -196,8 +248,8 @@ int main(void)
     SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ | SYSCTL_OSC_MAIN | SYSCTL_USE_PLL | SYSCTL_CFG_VCO_240), 120000000);
 
     ConfigurarHardware();
+    ConfigurarServo();
     IntMasterEnable();
-    MostrarBinario(0);
 
     while(1){
         if(juego_activo){
@@ -211,17 +263,19 @@ int main(void)
             }
         }
 
-        if(juego_activo && respondidas >= total)
-        {
+        if(juego_activo && respondidas >= total){
             juego_activo = false;
 
-            if((aciertos * 100) >= (total * 60)){
-                MostrarBinario(0x0F);
-            }
-            else{
-                MostrarBinario(0x00);
-            }
+            if((aciertos * 100) >= (total * 60))
+                entregar_dulce = true;
         }
+
+        if(entregar_dulce) {
+            entregar_dulce = false;
+            DarDulce();
+        }
+        
         Delay_ms(20);
     }
 }
+
