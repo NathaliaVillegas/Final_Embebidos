@@ -1,16 +1,130 @@
 ======================================================================
 USUARIO: a
 FECHA: 10/07/2026
-HORA DE INICIO: 06:46:39
-HORA DE FIN: 06:47:14
+HORA DE INICIO: 16:51:49
+HORA DE FIN: 16:54:47
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+1) 5 - 14 = 879    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 10/07/2026
+HORA DE INICIO: 16:51:49
+HORA DE FIN: 16:54:48
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+1) 5 - 14 = 879    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 10/07/2026
+HORA DE INICIO: 17:01:07
+HORA DE FIN: 17:01:47
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+1) 6 + 9 = 879    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 10/07/2026
+HORA DE INICIO: 17:01:07
+HORA DE FIN: 17:01:58
+
+MODO: Modo 1
+INTENTOS: 1
+
+RESULTADOS
+
+1) 6 + 9 = 879    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 10/07/2026
+HORA DE INICIO: 17:02:27
+HORA DE FIN: 17:04:07
 
 MODO: Modo 2
 INTENTOS: 1
 
 RESULTADOS
 
-1) 12 + 5 = 373    Respuesta: Cámara    -> Incorrecto
-2) Mesa:0 -> Escrito:515    Respuesta: Cámara    -> Incorrecto
+1) Mesa:3 -> Escrito:4    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 10/07/2026
+HORA DE INICIO: 17:02:27
+HORA DE FIN: 17:04:11
+
+MODO: Modo 2
+INTENTOS: 1
+
+RESULTADOS
+
+1) Mesa:3 -> Escrito:4    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 10/07/2026
+HORA DE INICIO: 17:13:33
+HORA DE FIN: 17:16:54
+
+MODO: Modo 2
+INTENTOS: 2
+
+RESULTADOS
+
+1) Mesa:2 -> Escrito:4    Respuesta: Cámara    -> Incorrecto
+2) Mesa:0 -> Escrito:2    Respuesta: Cámara    -> Incorrecto
 
 Correctas   : 0
 Incorrectas : 2
@@ -19,18 +133,18 @@ Puntaje     : 0.0%
 ======================================================================
 
 ======================================================================
-USUARIO: a
+USUARIO: Nath
 FECHA: 10/07/2026
-HORA DE INICIO: 06:46:39
-HORA DE FIN: 06:47:16
+HORA DE INICIO: 17:13:33
+HORA DE FIN: 17:16:59
 
 MODO: Modo 2
-INTENTOS: 1
+INTENTOS: 2
 
 RESULTADOS
 
-1) 12 + 5 = 373    Respuesta: Cámara    -> Incorrecto
-2) Mesa:0 -> Escrito:515    Respuesta: Cámara    -> Incorrecto
+1) Mesa:2 -> Escrito:4    Respuesta: Cámara    -> Incorrecto
+2) Mesa:0 -> Escrito:2    Respuesta: Cámara    -> Incorrecto
 
 Correctas   : 0
 Incorrectas : 2
@@ -39,487 +153,17 @@ Puntaje     : 0.0%
 ======================================================================
 
 ======================================================================
-USUARIO: a
+USUARIO: Thais
 FECHA: 10/07/2026
-HORA DE INICIO: 10:54:16
-HORA DE FIN: 10:54:34
-
-MODO: Modo 1
-INTENTOS: 1
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 10/07/2026
-HORA DE INICIO: 10:54:16
-HORA DE FIN: 10:54:36
-
-MODO: Modo 1
-INTENTOS: 1
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:05:05
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:05:08
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:05:56
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:05:57
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath}
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:22:43
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath}
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:22:44
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:27:05
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:27:08
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:27:52
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:29:17
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:32:07
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:32:10
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:34:18
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:34:35
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:35:16
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:35:19
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:36:26
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:36:27
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:39:20
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 11:39:25
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 10/07/2026
-HORA DE INICIO: 11:44:32
-HORA DE FIN: 11:44:44
-
-MODO: Modo 1
-INTENTOS: 1
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 10/07/2026
-HORA DE INICIO: 11:44:32
-HORA DE FIN: 11:44:48
-
-MODO: Modo 1
-INTENTOS: 1
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: 1
-FECHA: 10/07/2026
-HORA DE INICIO: 11:50:02
-HORA DE FIN: 11:56:49
-
-MODO: Modo 1
-INTENTOS: 1
-
-RESULTADOS
-
-1) 17 * 6 = 35    Respuesta: Cámara    -> Incorrecto
-
-Correctas   : 0
-Incorrectas : 1
-Puntaje     : 0.0%
-
-======================================================================
-
-======================================================================
-USUARIO: 1
-FECHA: 10/07/2026
-HORA DE INICIO: 11:50:02
-HORA DE FIN: 11:57:07
-
-MODO: Modo 1
-INTENTOS: 1
-
-RESULTADOS
-
-1) 17 * 6 = 35    Respuesta: Cámara    -> Incorrecto
-
-Correctas   : 0
-Incorrectas : 1
-Puntaje     : 0.0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 10/07/2026
-HORA DE INICIO: 12:02:52
-HORA DE FIN: 12:05:57
+HORA DE INICIO: 17:18:20
+HORA DE FIN: 17:19:42
 
 MODO: Modo 2
-INTENTOS: 1
+INTENTOS: 2
 
 RESULTADOS
 
-1) 75 / 15 = 4711    Respuesta: Cámara    -> Incorrecto
+1) Mesa:1 -> Escrito:2    Respuesta: Cámara    -> Incorrecto
 
 Correctas   : 0
 Incorrectas : 1
@@ -528,163 +172,17 @@ Puntaje     : 0.0%
 ======================================================================
 
 ======================================================================
-USUARIO: a
+USUARIO: Thais
 FECHA: 10/07/2026
-HORA DE INICIO: 12:02:52
-HORA DE FIN: 12:05:59
+HORA DE INICIO: 17:18:20
+HORA DE FIN: 17:19:52
 
 MODO: Modo 2
-INTENTOS: 1
+INTENTOS: 2
 
 RESULTADOS
 
-1) 75 / 15 = 4711    Respuesta: Cámara    -> Incorrecto
-
-Correctas   : 0
-Incorrectas : 1
-Puntaje     : 0.0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 10/07/2026
-HORA DE INICIO: 12:11:34
-HORA DE FIN: 12:17:09
-
-MODO: Modo 2
-INTENTOS: 1
-
-RESULTADOS
-
-1) Mesa:(3, array([[[135, 138, 129],
-        [136, 139, 130],
-        [135, 142, 122],
-        ...,
-        [143, 143, 143],
-        [112, 112, 112],
-        [143, 143, 143]],
-
-       [[133, 138, 123],
-        [137, 142, 128],
-        [135, 143, 119],
-        ...,
-        [145, 145, 145],
-        [143, 143, 143],
-        [145, 145, 145]],
-
-       [[130, 140, 111],
-        [133, 142, 114],
-        [135, 140, 125],
-        ...,
-        [143, 143, 143],
-        [139, 144, 143],
-        [141, 146, 145]],
-
-       ...,
-
-       [[ 81,  81,  81],
-        [ 80,  80,  80],
-        [ 76,  81,  80],
-        ...,
-        [129, 140, 108],
-        [132, 132, 132],
-        [133, 133, 133]],
-
-       [[ 56,  85,  80],
-        [ 54,  83,  78],
-        [ 55,  84,  79],
-        ...,
-        [128, 135, 115],
-        [128, 131, 122],
-        [134, 137, 127]],
-
-       [[ 52,  90,  84],
-        [ 50,  89,  83],
-        [ 71,  81,  79],
-        ...,
-        [127, 129, 124],
-        [128, 136, 112],
-        [132, 140, 116]]], shape=(480, 640, 3), dtype=uint8), array([[  0,   0,   0, ...,   0,   0,   0],
-       [  0,   0,   0, ...,   0,   0,   0],
-       [  0,   0,   0, ...,   0,   0,   0],
-       ...,
-       [255, 255, 255, ..., 255, 255, 255],
-       [255, 255, 255, ..., 255, 255, 255],
-       [255, 255, 255, ..., 255, 255, 255]], shape=(480, 640), dtype=uint8)) -> Escrito:41717    Respuesta: Cámara    -> Incorrecto
-
-Correctas   : 0
-Incorrectas : 1
-Puntaje     : 0.0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 10/07/2026
-HORA DE INICIO: 12:11:34
-HORA DE FIN: 12:17:55
-
-MODO: Modo 2
-INTENTOS: 1
-
-RESULTADOS
-
-1) Mesa:(3, array([[[135, 138, 129],
-        [136, 139, 130],
-        [135, 142, 122],
-        ...,
-        [143, 143, 143],
-        [112, 112, 112],
-        [143, 143, 143]],
-
-       [[133, 138, 123],
-        [137, 142, 128],
-        [135, 143, 119],
-        ...,
-        [145, 145, 145],
-        [143, 143, 143],
-        [145, 145, 145]],
-
-       [[130, 140, 111],
-        [133, 142, 114],
-        [135, 140, 125],
-        ...,
-        [143, 143, 143],
-        [139, 144, 143],
-        [141, 146, 145]],
-
-       ...,
-
-       [[ 81,  81,  81],
-        [ 80,  80,  80],
-        [ 76,  81,  80],
-        ...,
-        [129, 140, 108],
-        [132, 132, 132],
-        [133, 133, 133]],
-
-       [[ 56,  85,  80],
-        [ 54,  83,  78],
-        [ 55,  84,  79],
-        ...,
-        [128, 135, 115],
-        [128, 131, 122],
-        [134, 137, 127]],
-
-       [[ 52,  90,  84],
-        [ 50,  89,  83],
-        [ 71,  81,  79],
-        ...,
-        [127, 129, 124],
-        [128, 136, 112],
-        [132, 140, 116]]], shape=(480, 640, 3), dtype=uint8), array([[  0,   0,   0, ...,   0,   0,   0],
-       [  0,   0,   0, ...,   0,   0,   0],
-       [  0,   0,   0, ...,   0,   0,   0],
-       ...,
-       [255, 255, 255, ..., 255, 255, 255],
-       [255, 255, 255, ..., 255, 255, 255],
-       [255, 255, 255, ..., 255, 255, 255]], shape=(480, 640), dtype=uint8)) -> Escrito:41717    Respuesta: Cámara    -> Incorrecto
+1) Mesa:1 -> Escrito:2    Respuesta: Cámara    -> Incorrecto
 
 Correctas   : 0
 Incorrectas : 1
@@ -695,398 +193,128 @@ Puntaje     : 0.0%
 ======================================================================
 USUARIO: Nath
 FECHA: 10/07/2026
-HORA DE INICIO: 12:18:28
-HORA DE FIN: 12:18:32
-
-MODO: Modo 1
-INTENTOS: 1
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath
-FECHA: 10/07/2026
-HORA DE INICIO: 12:18:28
-HORA DE FIN: 12:18:34
-
-MODO: Modo 1
-INTENTOS: 1
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath
-FECHA: 10/07/2026
-HORA DE INICIO: 12:19:15
-HORA DE FIN: 12:20:36
+HORA DE INICIO: 17:20:19
+HORA DE FIN: 17:21:17
 
 MODO: Modo 2
-INTENTOS: 1
+INTENTOS: 2
 
 RESULTADOS
 
-1) Mesa:4 -> Escrito:4    Respuesta: Cámara    -> Correcto
+1) Mesa:0 -> Escrito:2    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 10/07/2026
+HORA DE INICIO: 17:20:19
+HORA DE FIN: 17:21:18
+
+MODO: Modo 2
+INTENTOS: 2
+
+RESULTADOS
+
+1) Mesa:0 -> Escrito:2    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 0
+Incorrectas : 1
+Puntaje     : 0.0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 10/07/2026
+HORA DE INICIO: 17:21:41
+HORA DE FIN: 17:23:35
+
+MODO: Modo 2
+INTENTOS: 2
+
+RESULTADOS
+
+1) Mesa:3 -> Escrito:2    Respuesta: Cámara    -> Incorrecto
+2) Mesa:2 -> Escrito:2    Respuesta: Cámara    -> Correcto
 
 Correctas   : 1
-Incorrectas : 0
-Puntaje     : 100.0%
+Incorrectas : 1
+Puntaje     : 50.0%
 
 ======================================================================
 
 ======================================================================
 USUARIO: Nath
 FECHA: 10/07/2026
-HORA DE INICIO: 12:19:15
-HORA DE FIN: 12:20:37
+HORA DE INICIO: 17:21:41
+HORA DE FIN: 17:23:35
 
 MODO: Modo 2
-INTENTOS: 1
+INTENTOS: 2
 
 RESULTADOS
 
-1) Mesa:4 -> Escrito:4    Respuesta: Cámara    -> Correcto
+1) Mesa:3 -> Escrito:2    Respuesta: Cámara    -> Incorrecto
+2) Mesa:2 -> Escrito:2    Respuesta: Cámara    -> Correcto
 
 Correctas   : 1
-Incorrectas : 0
-Puntaje     : 100.0%
-
-======================================================================
-
-======================================================================
-USUARIO: nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:13:19
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:13:22
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
+Incorrectas : 1
+Puntaje     : 50.0%
 
 ======================================================================
 
 ======================================================================
 USUARIO: Nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:20:38
+FECHA: 10/07/2026
+HORA DE INICIO: 17:34:36
+HORA DE FIN: 17:38:09
 
-MODO: 
-INTENTOS: 0
+MODO: Modo 1
+INTENTOS: 2
 
 RESULTADOS
 
+1) Mesa:4 -> Escrito:74    Respuesta: Cámara    -> Incorrecto
+2) Mesa:4 -> Escrito:4    Respuesta: Cámara    -> Correcto
+3) Mesa:4 -> Escrito:5    Respuesta: Cámara    -> Incorrecto
+4) Mesa:4 -> Escrito:51    Respuesta: Cámara    -> Incorrecto
+5) Mesa:3 -> Escrito:5    Respuesta: Cámara    -> Incorrecto
+6) 18 / 3 = 6    Respuesta: Cámara    -> Correcto
+7) 20 * 12 = 2440    Respuesta: Cámara    -> Incorrecto
 
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
+Correctas   : 2
+Incorrectas : 5
+Puntaje     : 28.57%
 
 ======================================================================
 
 ======================================================================
 USUARIO: Nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:20:39
+FECHA: 10/07/2026
+HORA DE INICIO: 17:34:36
+HORA DE FIN: 17:38:10
 
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:22:27
-
-MODO: 
-INTENTOS: 0
+MODO: Modo 1
+INTENTOS: 2
 
 RESULTADOS
 
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:22:41
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:24:54
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:24:56
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:26:00
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:26:03
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:29:29
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:29:30
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:30:54
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:30:56
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:31:35
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: a
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:31:36
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:32:43
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
-
-======================================================================
-
-======================================================================
-USUARIO: Nath
-FECHA: 
-HORA DE INICIO: 
-HORA DE FIN: 13:33:00
-
-MODO: 
-INTENTOS: 0
-
-RESULTADOS
-
-
-Correctas   : 0
-Incorrectas : 0
-Puntaje     : 0%
+1) Mesa:4 -> Escrito:74    Respuesta: Cámara    -> Incorrecto
+2) Mesa:4 -> Escrito:4    Respuesta: Cámara    -> Correcto
+3) Mesa:4 -> Escrito:5    Respuesta: Cámara    -> Incorrecto
+4) Mesa:4 -> Escrito:51    Respuesta: Cámara    -> Incorrecto
+5) Mesa:3 -> Escrito:5    Respuesta: Cámara    -> Incorrecto
+6) 18 / 3 = 6    Respuesta: Cámara    -> Correcto
+7) 20 * 12 = 2440    Respuesta: Cámara    -> Incorrecto
+
+Correctas   : 2
+Incorrectas : 5
+Puntaje     : 28.57%
 
 ======================================================================
 

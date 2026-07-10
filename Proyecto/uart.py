@@ -25,9 +25,7 @@ class UART:
                 timeout=1
             )
 
-            print("==========================================================")
             print(" UART CONECTADO CON TIVA CORRECTAMENTE")
-            print("==========================================================")
 
         except Exception as e:
             print(f"[ERROR UART] {e}")

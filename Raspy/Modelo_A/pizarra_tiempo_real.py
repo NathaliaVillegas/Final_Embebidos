@@ -10,11 +10,9 @@ cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
-print("====================================================")
 print("  MOTOR NATIVO PURIFICADO - CONFIDENZA 100% EN YOLO")
 print("  PRESIONA 'E' PARA EVALUAR LA ECUACIÓN EN TERMINAL")
 print("  PRESIONA 'Q' PARA SALIR")
-print("====================================================")
 
 cv2.namedWindow("Deteccion Optimizada", cv2.WINDOW_NORMAL)
 
@@ -56,13 +54,9 @@ def evaluar_pizarra():
         print(f"[ANALIZADOR] {miembro_izq} = {valor_propuesto} | Resultado Real: {valor_real}")
 
         if abs(valor_real - valor_propuesto) < 0.001:
-            print("=========================================")
             print("       ¡RESULTADO 100% CORRECTO! 🍬      ")
-            print("=========================================")
         else:
-            print("=========================================")
             print("       RESULTADO INCORRECTO ❌           ")
-            print("=========================================")
 
     except Exception as e:
         print(f"[ERROR PARSER] No se pudo calcular: {e}")
