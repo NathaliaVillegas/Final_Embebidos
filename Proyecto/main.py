@@ -3,11 +3,10 @@ from tkinter import messagebox
 import cv2
 from PIL import Image, ImageTk
 import re
-import os
 
 # --- Importación de tus módulos del sistema educativo ---
 import ModeloA
-import ModeloB  # Tu procesador morfológico de conteo
+import interfaz as ModeloB  # Tu procesador morfológico de conteo
 import operaciones
 from historial import Historial
 from uart import UART
@@ -15,69 +14,39 @@ from uart import UART
 # =========================================================
 # NUEVA PALETA DE COLORES (PASTELES: ROSADO, MORADO, TURQUESA)
 # =========================================================
-COLOR_FONDO = "#F4E8FF"       
-COLOR_TEXTO_MAIN = "#351C4D"  
-COLOR_TITULO = "#BD1D9D"      
-COLOR_MODO_A = "#AE82E1"      
-COLOR_MODO_B = "#A0E8DF"      
-COLOR_BOTON_OK = "#C3AED6"    
-COLOR_BOTON_ERR = "#FF9AA2"   
-COLOR_BOTON_NEU = "#B5EAD7"   
-
-# =========================================================
-# CONFIGURACIÓN VISUAL Y FUENTES
-# =========================================================
-ANCHO = 1280
-ALTO = 720
-FUENTE_TITULO = ("Comic Sans MS", 40, "bold")
-FUENTE_TEXTO = ("Comic Sans MS", 24, "bold")
-FUENTE_BOTON = ("Comic Sans MS", 14, "bold")
-
-def dibujar_texto_borde(canvas, x, y, texto, fuente, color_texto, color_borde, tag=None, justify="center"):
-    """Dibuja texto con contorno para que resalte sobre cualquier imagen de fondo."""
-    desp = 2
-    opciones = {"text": texto, "font": fuente, "fill": color_borde, "justify": justify}
-    if tag: opciones["tags"] = tag
-    
-    # Sombras / Bordes
-    canvas.create_text(x-desp, y-desp, **opciones)
-    canvas.create_text(x+desp, y-desp, **opciones)
-    canvas.create_text(x-desp, y+desp, **opciones)
-    canvas.create_text(x+desp, y+desp, **opciones)
-    # Texto principal
-    opciones["fill"] = color_texto
-    canvas.create_text(x, y, **opciones)
-
+COLOR_FONDO = "#F4E8FF"       # Morado muy pastel (Fondo principal)
+COLOR_TEXTO_MAIN = "#4A235A"  # Morado oscuro para el texto (buena legibilidad)
+COLOR_TITULO = "#351C4D"      # Morado más oscuro para títulos
+COLOR_MODO_A = "#FFB6C1"      # Rosado pastel (Botones Modo 1)
+COLOR_MODO_B = "#A0E8DF"      # Turquesa pastel (Botones Modo 2)
+COLOR_BOTON_OK = "#C3AED6"    # Morado/Lila pastel intermedio (Confirmar)
+COLOR_BOTON_ERR = "#FF9AA2"   # Rosado/Coral pastel (Cancelar/Error)
+COLOR_BOTON_NEU = "#B5EAD7"   # Verde/Turquesa suave (Volver/Salir)
 
 class AccessWindow():
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Sistema Educativo Inteligente - Acceso")
-        self.root.geometry(f"{ANCHO}x{ALTO}")
+        self.root.configure(bg=COLOR_FONDO)
+        self.root.geometry("800x500")
         self.root.resizable(False, False)
 
-        self.canvas = tk.Canvas(self.root, width=ANCHO, height=ALTO, highlightthickness=0)
-        self.canvas.pack(fill="both", expand=True)
+        titulo = tk.Label(self.root, text="¡Bienvenido al Sistema Educativo!", 
+                          font=("Century Gothic", 24, "bold"), fg=COLOR_TITULO, bg=COLOR_FONDO)
+        titulo.pack(pady=50)
 
-        try:
-            self.img_fondo = ImageTk.PhotoImage(Image.open("fondo_login.jpg").resize((ANCHO, ALTO)))
-            self.canvas.create_image(0, 0, image=self.img_fondo, anchor="nw")
-        except:
-            self.canvas.configure(bg=COLOR_FONDO)
+        instruccion = tk.Label(self.root, text="Ingresa tu nombre para comenzar a jugar:", 
+                               font=("Century Gothic", 14), fg=COLOR_TEXTO_MAIN, bg=COLOR_FONDO)
+        instruccion.pack(pady=10)
 
-        dibujar_texto_borde(self.canvas, ANCHO//2, 280, "Ingresa tu nombre para comenzar a jugar:", FUENTE_TEXTO, "white", COLOR_TEXTO_MAIN)
-
-        self.name_entry = tk.Entry(self.root, width=75, font=("Comic Sans MS", 18), justify="center", bg="white", fg=COLOR_TEXTO_MAIN, relief="flat", bd=0)
-        self.name_entry.place(x=220, y=340, height=50)
+        self.name_entry = tk.Entry(self.root, width=40, font=("Century Gothic", 14), justify="center", relief="solid", bd=1)
+        self.name_entry.pack(pady=10)
         self.name_entry.focus()
 
-        guardar = tk.Button(self.root, text="¡Entrar a Jugar!", font=FUENTE_BOTON, command=self.started, 
-                            bg=COLOR_BOTON_OK, fg=COLOR_TEXTO_MAIN, activebackground="#D5C5E3", relief="flat")
-        guardar.place(x=ANCHO//2 - 100, y=450, width=200, height=50)
-
-        btn_salir = tk.Button(self.root, text="Salir", font=FUENTE_BOTON, command=self.root.destroy, 
-                              bg=COLOR_BOTON_ERR, fg=COLOR_TEXTO_MAIN, relief="flat")
-        btn_salir.place(x=20, y=20, width=100, height=45)
+        guardar = tk.Button(self.root, text="¡Entrar a Jugar!", font=("Century Gothic", 12, "bold"),
+                            command=self.started, bg=COLOR_BOTON_OK, fg=COLOR_TEXTO_MAIN, 
+                            activebackground="#D5C5E3", relief="flat", padx=20, pady=8)
+        guardar.pack(pady=30)
 
         self.root.bind("<Return>", lambda e: self.started())
         self.root.mainloop()
@@ -94,30 +63,28 @@ class MainWindow():
     def __init__(self, user_name):
         self.root = tk.Tk()
         self.root.title("Sistema Educativo Inteligente - Panel Principal")
-        self.root.geometry(f"{ANCHO}x{ALTO}")
-        self.root.resizable(False, False)
+        self.root.configure(bg=COLOR_FONDO)
+        self.root.geometry("1100x750")
         
-        # --- Inicialización de Hardware y Persistencia (Intacto) ---
+        # --- Inicialización de Hardware y Persistencia ---
         self.uart = UART(port="/dev/serial0", baudrate=9600)
         self.historial = Historial(user_name)
         self.cam = None
         
-        # --- Variables de control (Intacto) ---
+        # --- Variables de control de los modos de juego ---
         self.modo_actual = 0
         self.total_intentos = 0
         self.intento_actual = 0
+        
         self.ejercicio_str = ""
         self.respuesta_esperada = 0
         self.objetos_detectados = 0
+        
         self.estado_juego = ""  
         self.frame_actual = None
         self.frame_congelado = None
         self.video_pausado = False
         self.estado_memoria = ""
-
-        # Contenedor principal
-        self.canvas = tk.Canvas(self.root, width=ANCHO, height=ALTO, highlightthickness=0)
-        self.canvas.pack(fill="both", expand=True)
 
         self.root.bind('<Return>', self.tecla_presionada)
         self.root.bind('<space>', self.tecla_presionada)
@@ -126,69 +93,58 @@ class MainWindow():
         self.crear_pantalla_menu()
         self.root.mainloop()
 
-    def cargar_fondo(self, nombre_archivo):
-        self.canvas.delete("all")
-        try:
-            self.img_fondo = ImageTk.PhotoImage(Image.open(nombre_archivo).resize((ANCHO, ALTO)))
-            self.canvas.create_image(0, 0, image=self.img_fondo, anchor="nw")
-        except:
-            self.canvas.configure(bg=COLOR_FONDO)
-
-    def destruir_widgets(self):
+    def limpiar_pantalla(self):
         for widget in self.root.winfo_children():
-            if isinstance(widget, (tk.Button, tk.Entry, tk.Label)):
-                widget.destroy()
-
-    def botones_navegacion(self, comando_volver=None):
-        if comando_volver:
-            btn_volver = tk.Button(self.root, text="Volver", font=FUENTE_BOTON, command=comando_volver, 
-                                   bg=COLOR_BOTON_NEU, fg=COLOR_TEXTO_MAIN, relief="flat")
-            btn_volver.place(x=20, y=20, width=120, height=45)
-
-        btn_salir = tk.Button(self.root, text="Salir", font=FUENTE_BOTON, command=self.cerrar_todo, 
-                              bg=COLOR_BOTON_ERR, fg=COLOR_TEXTO_MAIN, relief="flat")
-        btn_salir.place(x=1140, y=20, width=120, height=45)
+            widget.destroy()
 
     # =========================================================
     # PANTALLAS DE FLUJO DE LA INTERFAZ
     # =========================================================
     def crear_pantalla_menu(self):
-        self.destruir_widgets()
+        self.limpiar_pantalla()
         self.detener_camara()
         self.estado_juego = ""
-        self.cargar_fondo("fondo_selección.jpg")
 
-        dibujar_texto_borde(self.canvas, ANCHO//2, 185, f"¡Hola, {self.historial.nombre}!", FUENTE_TITULO, "white", COLOR_TITULO)
-        dibujar_texto_borde(self.canvas, ANCHO//2, 280, "Selecciona un modo para comenzar a aprender:", FUENTE_TEXTO, "white", COLOR_TEXTO_MAIN)
-
-        btn_a = tk.Button(self.root, text="Modo A: Resolver Operaciones en Pizarra", font=FUENTE_BOTON, 
-                          bg=COLOR_MODO_A, fg=COLOR_TEXTO_MAIN, relief="flat", command=lambda: self.pedir_intentos(1))
-        btn_a.place(x=230, y=350, width=400, height=200)
-
-        btn_b = tk.Button(self.root, text="Modo B: Conteo de Objetos en Mesa", font=FUENTE_BOTON, 
-                          bg=COLOR_MODO_B, fg=COLOR_TEXTO_MAIN, relief="flat", command=lambda: self.pedir_intentos(2))
-        btn_b.place(x=650, y=350, width=400, height=200)
+        tk.Label(self.root, text=f"¡Hola, {self.historial.nombre}! 👋", 
+                 font=("Century Gothic", 26, "bold"), fg=COLOR_TITULO, bg=COLOR_FONDO).pack(pady=40)
         
-        self.botones_navegacion()
+        tk.Label(self.root, text="Selecciona una actividad para comenzar el aprendizaje:", 
+                 font=("Century Gothic", 14), fg=COLOR_TEXTO_MAIN, bg=COLOR_FONDO).pack(pady=10)
+
+        btn_a = tk.Button(self.root, text="Modo A: Resolver Operaciones en Pizarra 📐", 
+                          font=("Century Gothic", 13, "bold"), bg=COLOR_MODO_A, fg=COLOR_TEXTO_MAIN, 
+                          width=45, height=2, relief="flat", command=lambda: self.pedir_intentos(1))
+        btn_a.pack(pady=15)
+
+        btn_b = tk.Button(self.root, text="Modo B: Conteo de Objetos en Mesa 🍎", 
+                          font=("Century Gothic", 13, "bold"), bg=COLOR_MODO_B, fg=COLOR_TEXTO_MAIN, 
+                          width=45, height=2, relief="flat", command=lambda: self.pedir_intentos(2))
+        btn_b.pack(pady=15)
+
+        btn_salir = tk.Button(self.root, text="Salir y Guardar mi Historial", 
+                              font=("Century Gothic", 12, "bold"), bg=COLOR_BOTON_ERR, fg=COLOR_TEXTO_MAIN, 
+                              relief="flat", padx=20, pady=10, command=self.cerrar_todo)
+        btn_salir.pack(pady=60)
 
     def pedir_intentos(self, modo):
-        self.destruir_widgets()
+        self.limpiar_pantalla()
         self.modo_actual = modo
-        self.cargar_fondo("fondo_intentos.jpg")
         
         titulo_texto = "Modo A: Análisis de Pizarra" if modo == 1 else "Modo B: Conteo de Objetos"
         
-        dibujar_texto_borde(self.canvas, ANCHO//2, 150, titulo_texto, FUENTE_TITULO, "white", COLOR_TITULO)
-        dibujar_texto_borde(self.canvas, ANCHO//2, 240, "¿Cuántos ejercicios o intentos deseas realizar?", FUENTE_TEXTO, "white", COLOR_TEXTO_MAIN)
+        tk.Label(self.root, text=titulo_texto, font=("Century Gothic", 24, "bold"), fg=COLOR_TITULO, bg=COLOR_FONDO).pack(pady=40)
+        tk.Label(self.root, text="¿Cuántos ejercicios o intentos deseas realizar en esta sesión?", 
+                 font=("Century Gothic", 14), fg=COLOR_TEXTO_MAIN, bg=COLOR_FONDO).pack(pady=20)
 
-        self.entry_intentos = tk.Entry(self.root, font=("Comic Sans MS", 22), justify="center", bg="white", fg=COLOR_TEXTO_MAIN, relief="flat", bd=0)
-        self.entry_intentos.place(x=ANCHO//2 - 75, y=320, width=150, height=50)
+        self.entry_intentos = tk.Entry(self.root, font=("Century Gothic", 16), justify="center", width=12, relief="solid", bd=1)
+        self.entry_intentos.pack(pady=10)
         self.entry_intentos.focus()
 
-        tk.Button(self.root, text="¡Comenzar Actividad!", font=FUENTE_BOTON, bg=COLOR_BOTON_OK, fg=COLOR_TEXTO_MAIN, 
-                  relief="flat", command=self.validar_e_iniciar).place(x=ANCHO//2 - 125, y=480, width=250, height=60)
+        tk.Button(self.root, text="¡Comenzar Actividad!", font=("Century Gothic", 13, "bold"), 
+                  bg=COLOR_BOTON_OK, fg=COLOR_TEXTO_MAIN, relief="flat", padx=25, pady=8, command=self.validar_e_iniciar).pack(pady=25)
                   
-        self.botones_navegacion(comando_volver=self.crear_pantalla_menu)
+        tk.Button(self.root, text="Volver al Menú", font=("Century Gothic", 11), 
+                  bg=COLOR_BOTON_NEU, fg=COLOR_TEXTO_MAIN, relief="flat", padx=15, pady=5, command=self.crear_pantalla_menu).pack(pady=10)
 
     def validar_e_iniciar(self):
         try:
@@ -209,25 +165,35 @@ class MainWindow():
         self.construir_interfaz_juego()
 
     # =========================================================
-    # ÁREA DE JUEGO DINÁMICA (Textos en Canvas para no tapar fondo)
+    # ÁREA DE JUEGO DINÁMICA
     # =========================================================
     def construir_interfaz_juego(self):
-        self.destruir_widgets()
-        self.cargar_fondo("fondo_camara.jpg")
-        self.botones_navegacion(comando_volver=self.crear_pantalla_menu)
+        self.limpiar_pantalla()
         
-        # Textos Dinámicos dibujados transparentes sobre el Canvas (Lado Izquierdo)
-        dibujar_texto_borde(self.canvas, 430, 220, "", FUENTE_TEXTO, "white", COLOR_TITULO, tag="lbl_contador")
-        dibujar_texto_borde(self.canvas, 350, 330, "", FUENTE_TEXTO, "white", COLOR_TEXTO_MAIN, tag="lbl_instruccion")
-        dibujar_texto_borde(self.canvas, 350, 480, "", FUENTE_TEXTO, "purple", COLOR_TITULO, tag="lbl_resultado")
+        frame_izq = tk.Frame(self.root, bg=COLOR_FONDO)
+        frame_izq.pack(side="left", fill="both", expand=True, padx=30)
         
-        # Botones de confirmación (Lado Izquierdo - ocultos por defecto)
-        self.btn_enviar = tk.Button(self.root, text="Enviar Captura", font=FUENTE_BOTON, bg=COLOR_BOTON_OK, fg=COLOR_TEXTO_MAIN, relief="flat", command=self.procesar_captura)
-        self.btn_otra = tk.Button(self.root, text="Tomar Otra", font=FUENTE_BOTON, bg=COLOR_BOTON_ERR, fg=COLOR_TEXTO_MAIN, relief="flat", command=self.cancelar_captura)
+        self.lbl_contador = tk.Label(frame_izq, text="", font=("Century Gothic", 14, "bold"), fg=COLOR_TITULO, bg=COLOR_FONDO)
+        self.lbl_contador.pack(pady=15)
         
-        # Video de la cámara (Lado Derecho)
-        self.lbl_video = tk.Label(self.root, bg="black")
-        self.lbl_video.place(x=700, y=150, width=500, height=380)
+        self.lbl_instruccion = tk.Label(frame_izq, text="", font=("Century Gothic", 18, "bold"), 
+                                        fg=COLOR_TEXTO_MAIN, bg=COLOR_FONDO, wraplength=400, justify="center")
+        self.lbl_instruccion.pack(pady=30)
+        
+        # Etiqueta que mostrará el resultado o instrucciones dinámicas
+        self.lbl_resultado = tk.Label(frame_izq, text="", font=("Century Gothic", 14, "bold"), bg=COLOR_FONDO, wraplength=400, justify="center")
+        self.lbl_resultado.pack(pady=20)
+        
+        self.frame_confirmacion = tk.Frame(frame_izq, bg=COLOR_FONDO)
+        tk.Button(self.frame_confirmacion, text="✅ Enviar Captura", font=("Century Gothic", 12, "bold"), 
+                  bg=COLOR_BOTON_OK, fg=COLOR_TEXTO_MAIN, relief="flat", padx=15, pady=6, command=self.procesar_captura).pack(side="left", padx=15)
+        tk.Button(self.frame_confirmacion, text="🔄 Tomar Otra Foto", font=("Century Gothic", 12, "bold"), 
+                  bg=COLOR_BOTON_ERR, fg=COLOR_TEXTO_MAIN, relief="flat", padx=15, pady=6, command=self.cancelar_captura).pack(side="left", padx=15)
+        
+        frame_der = tk.Frame(self.root, bg="black", bd=2, relief="solid")
+        frame_der.pack(side="right", padx=40, pady=40)
+        self.lbl_video = tk.Label(frame_der, bg="black")
+        self.lbl_video.pack()
         
         self.iniciar_camara()
         
@@ -236,65 +202,42 @@ class MainWindow():
         else:
             self.siguiente_intento_m2_mesa()
 
-    def actualizar_textos_juego(self, contador="", instruccion="", resultado="", color_res="white"):
-        if contador:
-            self.canvas.itemconfig("lbl_contador", text=contador)
-        if instruccion:
-            self.canvas.itemconfig("lbl_instruccion", text=instruccion)
-        if resultado:
-            self.canvas.itemconfig("lbl_resultado", text=resultado, fill=color_res)
-
-    def mostrar_botones_confirmacion(self, mostrar=True):
-        if mostrar:
-            self.btn_enviar.place(x=150, y=600, width=180, height=50)
-            self.btn_otra.place(x=350, y=600, width=180, height=50)
-        else:
-            self.btn_enviar.place_forget()
-            self.btn_otra.place_forget()
-
-    # --- LÓGICA DE SECUENCIA INTACTA ---
     def siguiente_intento_m1(self):
         self.estado_juego = "JUGANDO_M1"
         self.video_pausado = False
-        self.mostrar_botones_confirmacion(False)
+        self.frame_confirmacion.pack_forget()
         
+        self.lbl_contador.config(text=f"Ejercicio {self.intento_actual} de {self.total_intentos}")
         self.ejercicio_str, self.respuesta_esperada = operaciones.generar_operacion()
         
-        self.actualizar_textos_juego(
-            contador=f"Ejercicio {self.intento_actual} de {self.total_intentos}",
-            instruccion=f"Resuelve en la pizarra:\n\n{self.ejercicio_str} = ?",
-            resultado="Alinea el resultado y presiona ESPACIO."
-        )
+        self.lbl_instruccion.config(text=f"Resuelve en la pizarra:\n\n{self.ejercicio_str} = ?")
+        self.lbl_resultado.config(text="Alinea el resultado y presiona ESPACIO.", fg=COLOR_TEXTO_MAIN)
         ModeloA.limpiar_memoria()
 
     def siguiente_intento_m2_mesa(self):
         self.estado_juego = "M2_MESA"
         self.video_pausado = False
-        self.mostrar_botones_confirmacion(False)
+        self.frame_confirmacion.pack_forget()
         
-        self.actualizar_textos_juego(
-            contador=f"Conteo {self.intento_actual} de {self.total_intentos}",
-            instruccion="Paso 1:\nColoca los objetos que quieras\ncontar sobre la mesa.",
-            resultado="Presiona ESPACIO para registrar."
-        )
+        self.lbl_contador.config(text=f"Conteo {self.intento_actual} de {self.total_intentos}")
+        self.lbl_instruccion.config(text="Paso 1:\nColoca los objetos que quieras contar sobre la mesa.")
+        self.lbl_resultado.config(text="Presiona ESPACIO para registrar los objetos.", fg=COLOR_TEXTO_MAIN)
 
     def siguiente_intento_m2_pizarra(self):
         self.estado_juego = "M2_PIZARRA"
         self.video_pausado = False
-        self.mostrar_botones_confirmacion(False)
+        self.frame_confirmacion.pack_forget()
         
-        self.actualizar_textos_juego(
-            instruccion="Paso 2:\n¡Objetos registrados!\n\nEscribe el número en tu pizarra.",
-            resultado="Encuadra la pizarra y presiona ESPACIO."
-        )
+        self.lbl_instruccion.config(text="Paso 2:\n¡Objetos registrados!\n\nCuenta cuántos pusiste y escribe el número en tu pizarra.")
+        self.lbl_resultado.config(text="Encuadra la pizarra y presiona ESPACIO para validar.", fg=COLOR_TEXTO_MAIN)
         ModeloA.limpiar_memoria()
 
     # =========================================================
-    # CÁMARA Y CAPTURAS (Lógica Intacta)
+    # CÁMARA Y CAPTURAS
     # =========================================================
     def iniciar_camara(self):
         if self.cam is None:
-            self.cam = cv2.VideoCapture(0) # Ajusta índice si es necesario
+            self.cam = cv2.VideoCapture(1)
             self.video_pausado = False
             self.actualizar_video()
 
@@ -312,7 +255,7 @@ class MainWindow():
                     frame_dibujado = frame.copy()
                     
                     cv2.rectangle(frame_dibujado, (ModeloA.X_MIN_ROI, ModeloA.Y_MIN_ROI), 
-                                  (ModeloA.X_MAX_ROI, ModeloA.Y_MAX_ROI), (255, 182, 193), 2)
+                                  (ModeloA.X_MAX_ROI, ModeloA.Y_MAX_ROI), (255, 182, 193), 2) # Rectángulo rosado
                     
                     cv2image = cv2.cvtColor(frame_dibujado, cv2.COLOR_BGR2RGB)
                     img = Image.fromarray(cv2image).resize((500, 380), Image.LANCZOS)
@@ -331,18 +274,18 @@ class MainWindow():
                 self.estado_memoria = self.estado_juego
                 self.estado_juego = "CONFIRMANDO"
                 
-                self.actualizar_textos_juego(resultado="¿La imagen se ve bien?", color_res="purple")
-                self.mostrar_botones_confirmacion(True)
+                self.lbl_resultado.config(text="¿La imagen se ve bien?", fg=COLOR_TITULO)
+                self.frame_confirmacion.pack(pady=10)
 
     def cancelar_captura(self):
         self.estado_juego = self.estado_memoria
         self.video_pausado = False
-        self.mostrar_botones_confirmacion(False)
-        self.actualizar_textos_juego(resultado="Presiona ESPACIO cuando estés listo.", color_res="white")
+        self.frame_confirmacion.pack_forget()
+        self.lbl_resultado.config(text="Presiona ESPACIO cuando estés listo.", fg=COLOR_TEXTO_MAIN)
 
     def procesar_captura(self):
-        self.mostrar_botones_confirmacion(False)
-        self.actualizar_textos_juego(resultado="Pensando... ", color_res="purple")
+        self.frame_confirmacion.pack_forget()
+        self.lbl_resultado.config(text="Pensando... 🤔", fg=COLOR_TEXTO_MAIN)
         self.root.update()
         
         if self.estado_memoria == "JUGANDO_M1":
@@ -353,23 +296,26 @@ class MainWindow():
         elif self.estado_memoria == "M2_PIZARRA":
             self.evaluar_pizarra_m2(self.frame_congelado)
 
-
+    # =========================================================
+    # IA, EVALUACIÓN Y FEEDBACK DINÁMICO
+    # =========================================================
     def evaluar_pizarra_m1(self, frame):
         texto_yolo = ModeloA.evaluar_frame(frame)
         numeros = re.findall(r'\d+', str(texto_yolo))
         
         if not numeros:
-            self.actualizar_textos_juego(resultado="No detecté ningún número. ¡Vuelve a intentarlo!", color_res="#FF6B6B")
+            self.lbl_resultado.config(text="No detecté ningún número. ¡Vuelve a intentarlo!", fg="#C0392B") # Rojo oscuro
             self.cancelar_captura()
             return
             
         respuesta_alumno = int(numeros[-1])
         es_correcto = (respuesta_alumno == self.respuesta_esperada)
         
+        # --- AQUÍ ESTÁ EL MENSAJE DINÁMICO QUE PEDISTE ---
         if es_correcto:
             msj_pantalla = f"¡CORRECTO! 🟢\nEscribiste {respuesta_alumno} muy bien."
         else:
-            msj_pantalla = f"INCORRECTO 🔴\nTu respuesta fue {respuesta_alumno},\npero el resultado era {self.respuesta_esperada}."
+            msj_pantalla = f"INCORRECTO 🔴\nTu respuesta fue {respuesta_alumno}, pero el resultado era {self.respuesta_esperada}."
             
         self.notificar_resultado(f"{self.ejercicio_str} = {respuesta_alumno}", es_correcto, msj_pantalla)
 
@@ -378,32 +324,34 @@ class MainWindow():
         numeros = re.findall(r'\d+', str(texto_yolo))
         
         if not numeros:
-            self.actualizar_textos_juego(resultado="No detecté ningún número. ¡Vuelve a intentarlo!", color_res="#FF6B6B")
+            self.lbl_resultado.config(text="No detecté ningún número. ¡Vuelve a intentarlo!", fg="#C0392B")
             self.cancelar_captura()
             return
             
         respuesta_alumno = int(numeros[-1])
         es_correcto = (respuesta_alumno == self.objetos_detectados)
         
+        # --- AQUÍ ESTÁ EL MENSAJE DINÁMICO PARA EL MODO 2 ---
         if es_correcto:
             msj_pantalla = f"¡CORRECTO! 🟢\nContaste {respuesta_alumno} objetos perfectamente."
         else:
-            msj_pantalla = f"INCORRECTO 🔴\nPusiste {respuesta_alumno} pero en\nrealidad habían {self.objetos_detectados} objetos."
+            msj_pantalla = f"INCORRECTO 🔴\nPusiste {respuesta_alumno} pero en realidad habían {self.objetos_detectados} objetos."
             
         self.notificar_resultado(f"Mesa:{self.objetos_detectados} -> Escrito:{respuesta_alumno}", es_correcto, msj_pantalla)
 
     def notificar_resultado(self, string_registro, es_correcto, msj_pantalla):
         if es_correcto:
             self.uart.correcto()
-            self.actualizar_textos_juego(resultado=msj_pantalla, color_res="#2ECC71") # Verde resaltante
+            self.lbl_resultado.config(text=msj_pantalla, fg="#1E8449") # Verde oscuro visible en fondo pastel
         else:
             self.uart.incorrecto()
-            self.actualizar_textos_juego(resultado=msj_pantalla, color_res="#FF6B6B") # Rojo resaltante
+            self.lbl_resultado.config(text=msj_pantalla, fg="#C0392B") # Rojo oscuro visible en fondo pastel
             
         self.historial.agregar_resultado(string_registro, "Cámara", es_correcto)
         
         if self.intento_actual < self.total_intentos:
             self.intento_actual += 1
+            # Aumenté el tiempo a 3.5s para que el niño alcance a leer la retroalimentación
             retardo = 3500 
             if self.modo_actual == 1:
                 self.root.after(retardo, self.siguiente_intento_m1)
@@ -416,23 +364,25 @@ class MainWindow():
     # PANTALLA FINAL
     # =========================================================
     def crear_pantalla_final(self):
-        self.destruir_widgets()
+        self.limpiar_pantalla()
         self.detener_camara()
-        self.cargar_fondo("fondo_historial.jpg")
-        self.botones_navegacion()
         
-        dibujar_texto_borde(self.canvas, ANCHO//2 + 100, 200, "¡Actividad Concluida!", FUENTE_TITULO, "white", COLOR_TITULO)
+        tk.Label(self.root, text="¡Actividad Concluida! 🎉", 
+                 font=("Century Gothic", 26, "bold"), fg=COLOR_TITULO, bg=COLOR_FONDO).pack(pady=40)
         
         porcentaje = self.historial.puntaje()
-        dibujar_texto_borde(self.canvas, ANCHO//2, 280, f"Respuestas Correctas: {self.historial.correctas}", FUENTE_TEXTO, "#2ECC71", "black")
-        dibujar_texto_borde(self.canvas, ANCHO//2, 320, f"Respuestas Incorrectas: {self.historial.incorrectas}", FUENTE_TEXTO, "#FF6B6B", "black")
-        dibujar_texto_borde(self.canvas, ANCHO//2, 400, f"Puntaje Final: {porcentaje}%", FUENTE_TITULO, "white", COLOR_MODO_B)
+        tk.Label(self.root, text=f"Respuestas Correctas: {self.historial.correctas}", font=("Century Gothic", 16), fg="#1E8449", bg=COLOR_FONDO).pack(pady=5)
+        tk.Label(self.root, text=f"Respuestas Incorrectas: {self.historial.incorrectas}", font=("Century Gothic", 16), fg="#C0392B", bg=COLOR_FONDO).pack(pady=5)
+        tk.Label(self.root, text=f"Puntaje Final: {porcentaje}%", font=("Century Gothic", 20, "bold"), fg=COLOR_MODO_A, bg=COLOR_FONDO).pack(pady=20)
         
-        tk.Button(self.root, text="Volver a Jugar este Modo", font=FUENTE_BOTON, bg=COLOR_MODO_A, fg=COLOR_TEXTO_MAIN, 
-                  relief="flat", command=lambda: self.pedir_intentos(self.modo_actual)).place(x=ANCHO//2 - 150, y=500, width=300, height=50)
+        tk.Button(self.root, text="Volver a Jugar este Modo", font=("Century Gothic", 12, "bold"), 
+                  bg=COLOR_MODO_A, fg=COLOR_TEXTO_MAIN, width=30, relief="flat", command=lambda: self.pedir_intentos(self.modo_actual)).pack(pady=10)
                   
-        tk.Button(self.root, text="Ir al Menú de Selección", font=FUENTE_BOTON, bg=COLOR_BOTON_NEU, fg=COLOR_TEXTO_MAIN, 
-                  relief="flat", command=self.crear_pantalla_menu).place(x=ANCHO//2 - 150, y=580, width=300, height=50)
+        tk.Button(self.root, text="Ir al Menú de Selección", font=("Century Gothic", 12, "bold"), 
+                  bg=COLOR_MODO_B, fg=COLOR_TEXTO_MAIN, width=30, relief="flat", command=self.crear_pantalla_menu).pack(pady=10)
+                  
+        tk.Button(self.root, text="Salir del Sistema", font=("Century Gothic", 11), 
+                  bg=COLOR_BOTON_ERR, fg=COLOR_TEXTO_MAIN, width=20, relief="flat", command=self.cerrar_todo).pack(pady=25)
 
     def cerrar_todo(self):
         if self.historial:
