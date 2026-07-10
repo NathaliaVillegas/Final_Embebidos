@@ -766,3 +766,327 @@ Puntaje     : 100.0%
 
 ======================================================================
 
+======================================================================
+USUARIO: nath
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:13:19
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: nath
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:13:22
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:20:38
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:20:39
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:22:27
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:22:41
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:24:54
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:24:56
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:26:00
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:26:03
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:29:29
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:29:30
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:30:54
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:30:56
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:31:35
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: a
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:31:36
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:32:43
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
+======================================================================
+USUARIO: Nath
+FECHA: 
+HORA DE INICIO: 
+HORA DE FIN: 13:33:00
+
+MODO: 
+INTENTOS: 0
+
+RESULTADOS
+
+
+Correctas   : 0
+Incorrectas : 0
+Puntaje     : 0%
+
+======================================================================
+
