@@ -135,9 +135,9 @@ class MainWindow():
             self.canvas.configure(bg=COLOR_FONDO)
 
     def destruir_widgets(self):
-        for widget in self.root.winfo_children():
-            if isinstance(widget, (tk.Button, tk.Entry, tk.Label)):
-                widget.destroy()
+            for widget in self.root.winfo_children():
+                if isinstance(widget, (tk.Button, tk.Entry, tk.Label, tk.Frame)):
+                    widget.destroy()
 
     def botones_navegacion(self, comando_volver=None):
         if comando_volver:
@@ -147,7 +147,7 @@ class MainWindow():
 
         btn_salir = tk.Button(self.root, text="Salir", font=FUENTE_BOTON, command=self.cerrar_todo, 
                               bg=COLOR_BOTON_ERR, fg=COLOR_TEXTO_MAIN, relief="flat")
-        btn_salir.place(x=1140, y=20, width=120, height=45)
+        btn_salir.place(x=1140, y=660, width=120, height=45)
 
     # =========================================================
     # PANTALLAS DE FLUJO DE LA INTERFAZ
@@ -168,8 +168,51 @@ class MainWindow():
         btn_b = tk.Button(self.root, text="Modo B: Conteo de Objetos en Mesa", font=FUENTE_BOTON, 
                           bg=COLOR_MODO_B, fg=COLOR_TEXTO_MAIN, relief="flat", command=lambda: self.pedir_intentos(2))
         btn_b.place(x=650, y=350, width=400, height=200)
+
+        btn_historial = tk.Button(self.root, text="Ver Historial de Sesiones", font=FUENTE_BOTON, 
+                                  bg=COLOR_BOTON_NEU, fg=COLOR_TEXTO_MAIN, relief="flat", command=self.crear_pantalla_historial)
+        btn_historial.place(x=ANCHO//2 - 175, y=620, width=350, height=60)
         
         self.botones_navegacion()
+    
+    def crear_pantalla_historial(self):
+        self.destruir_widgets()
+        self.detener_camara()
+        self.estado_juego = ""
+        
+        # Puedes cargar un fondo específico si tienes uno, o dejar que use el color de fondo por defecto
+        self.cargar_fondo("fondo_historial.jpg") 
+
+        # Título de la pantalla
+        dibujar_texto_borde(self.canvas, ANCHO//2 + 100, 175, "Registro de Sesiones", FUENTE_TITULO, "white", COLOR_TITULO)
+
+        # Contenedor para el área de texto y el scrollbar
+        frame_texto = tk.Frame(self.root, bg="white", highlightbackground=COLOR_TITULO, highlightthickness=2)
+        frame_texto.place(x=140, y=280, width=1000, height=370) # <- Aquí puedes editar posición y tamaño
+
+        scrollbar = tk.Scrollbar(frame_texto)
+        scrollbar.pack(side="right", fill="y")
+
+        # Widget de texto
+        text_area = tk.Text(frame_texto, font=("Consolas", 12), bg="#FAFAFA", fg=COLOR_TEXTO_MAIN, 
+                            yscrollcommand=scrollbar.set, relief="flat", padx=15, pady=15)
+        text_area.pack(side="left", fill="both", expand=True)
+        scrollbar.config(command=text_area.yview)
+
+        # Lógica para leer el archivo
+        ruta_archivo = os.path.join("recursos", "usuarios.txt")
+        if os.path.exists(ruta_archivo):
+            with open(ruta_archivo, "r", encoding="utf-8") as archivo:
+                contenido = archivo.read()
+                text_area.insert("1.0", contenido)
+        else:
+            text_area.insert("1.0", "Aún no hay registros en el historial. ¡Juega una partida para empezar!")
+
+        # Deshabilitar edición para que solo sea lectura
+        text_area.config(state="disabled")
+
+        # Botones de navegación (el botón 'Volver' te regresará al menú principal)
+        self.botones_navegacion(comando_volver=self.crear_pantalla_menu)
 
     def pedir_intentos(self, modo):
         self.destruir_widgets()
