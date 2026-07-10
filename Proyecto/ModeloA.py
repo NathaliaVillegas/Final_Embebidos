@@ -3,7 +3,7 @@ import numpy as np
 from ultralytics import YOLO
 
 # =========================================================
-# MODELO YOLO
+# MODELO YOLO (APUNTANDO A TU NUEVO PRO DE 11 CLASES)
 # =========================================================
 ruta_modelo = "weights/best.pt"
 model = YOLO(ruta_modelo)
@@ -40,7 +40,7 @@ def iniciar_camara(indice=0):
 
     global cam
 
-    cam = cv2.VideoCapture(indice)
+    cam = cv2.VideoCapture(0)
 
     if not cam.isOpened():
         raise Exception("No se pudo abrir la cámara")
@@ -83,7 +83,7 @@ def cerrar_camara():
 
 def resetear_memoria():
     """
-    Bora la memoria temporal del detector.
+    Borra la memoria temporal del detector.
     Debe llamarse antes de evaluar un nuevo ejercicio.
     """
 
@@ -94,7 +94,7 @@ def resetear_memoria():
     ID_CONTADOR = 0
 
 # =========================================================
-# DETECCIÓN DEL NÚMERO (FILTRADO DE RUIDO Y DESEMPATE 3-8)
+# DETECCIÓN DEL NÚMERO (FILTRO DE RUIDO DIURNO CALIBRADO)
 # =========================================================
 
 def detectar_numero(frame):
@@ -105,7 +105,7 @@ def detectar_numero(frame):
     if frame is None:
         return ""
 
-    # 1. Transformación a escala de grises y binarización adaptativa estable
+    # 1. Segmentación adaptativa diurna estable
     gris = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     mascara_total = cv2.adaptiveThreshold(
@@ -121,12 +121,25 @@ def detectar_numero(frame):
     mascara_roi[Y_MIN_ROI:Y_MAX_ROI, X_MIN_ROI:X_MAX_ROI] = 255
     mascara_limpia = cv2.bitwise_and(mascara_total, mascara_roi)
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-    mascara_limpia = cv2.morphologyEx(mascara_limpia, cv2.MORPH_CLOSE, kernel, iterations=1)
+    kernel = cv2.getStructuringElement(
+        cv2.MORPH_RECT,
+        (3, 3)
+    )
+
+    mascara_limpia = cv2.morphologyEx(
+        mascara_limpia,
+        cv2.MORPH_CLOSE,
+        kernel,
+        iterations=1
+    )
 
     pizarra_perfecta = cv2.bitwise_or(
         cv2.bitwise_and(frame, frame, mask=mascara_limpia),
-        cv2.bitwise_and(np.ones_like(frame) * 255, np.ones_like(frame) * 255, mask=cv2.bitwise_not(mascara_limpia))
+        cv2.bitwise_and(
+            np.ones_like(frame) * 255,
+            np.ones_like(frame) * 255,
+            mask=cv2.bitwise_not(mascara_limpia)
+        )
     )
 
     contornos, _ = cv2.findContours(
@@ -142,21 +155,14 @@ def detectar_numero(frame):
         x, y, w, h = cv2.boundingRect(c)
 
         # ----------------------------------------------------------------------
-        # ANULACIÓN DE RUIDO PARÁSITO: Subimos drásticamente los límites mínimos
-        # para ignorar motas de polvo o trazos accidentales que confunden signos.
+        # FILTRO DE RUIDO SUTIL RE-CALIBRADO:
+        # Exigimos un ancho mínimo de 8 píxeles y una altura de 12 píxeles.
+        # Esto anula quirúrgicamente las motas de polvo y manchas de luz inferiores
+        # sin comprometer las dimensiones de tus números ni del signo menos real.
         # ----------------------------------------------------------------------
-        if not (15 < w < 110 and 18 < h < 110):
+        if w < 8 or h < 12:
             continue
 
-        if (
-            x <= X_MIN_ROI + 12 or
-            x + w >= X_MAX_ROI - 12 or
-            y <= Y_MIN_ROI + 12 or
-            y + h >= Y_MAX_ROI - 5
-        ):
-            continue
-
-        relacion_aspecto = h / w
         centro_x = x + w // 2
         centro_y = y + h // 2
 
@@ -227,51 +233,13 @@ def detectar_numero(frame):
             pred = model.predict(
                 source=cuadrado,
                 verbose=False,
-                conf=0.10
+                conf=0.25
             )
 
             if len(pred) > 0 and pred[0].probs is not None:
-
-                top5_indices = pred[0].probs.top5
-                name_top1 = pred[0].names[top5_indices[0]]
-                pool_candidatos = [pred[0].names[idx] for idx in top5_indices]
-
-                voto_actual = name_top1
-
-                # ------------------------------------------------------
-                # MÁQUINA DE DESEMPATES RE-CALIBRADA
-                # ------------------------------------------------------
-                # 1. Filtro estricto para trazos puramente horizontales (signos)
-                if relacion_aspecto < 0.50 and w > 16:
-                    if relacion_aspecto < 0.28: voto_actual = "minus"
-                    else: voto_actual = "equal"
-                        
-                # 2. Desempate crítico: Rescate Quirúrgico del 3 vs 8
-                elif voto_actual in ["8", "3"] or ("8" in pool_candidatos[:2] and "3" in pool_candidatos[:2]):
-                    # Analizamos la densidad lateral izquierda del recorte binario original
-                    # Un '3' tiene un hueco vacío a la izquierda en su parte media, el '8' está cerrado.
-                    recorte_gris = mascara_limpia[y:y+h, x:x+w]
-                    alto_c, ancho_c = recorte_gris.shape
-                    
-                    # Analizar el cuadrante medio-izquierdo del número
-                    segmento_izq = recorte_gris[int(alto_c*0.35):int(alto_c*0.65), 0:int(ancho_c*0.35)]
-                    densidad_pixeles = np.sum(segmento_izq == 255)
-                    
-                    # Si el sector izquierdo está mayormente vacío, es un 3 real, no un 8
-                    if densidad_pixeles < (segmento_izq.size * 0.20):
-                        voto_actual = "3"
-                    else:
-                        voto_actual = "8"
-
-                # 3. Correcciones suaves complementarias
-                elif h > 20 and 1.2 <= relacion_aspecto <= 2.2:
-                    if voto_actual == "1" and "divide" in pool_candidatos[:2] and relacion_aspecto >= 1.6:
-                        voto_actual = "divide"
-                    elif voto_actual == "8" and "7" in pool_candidatos[:3]:
-                        voto_actual = "7"
-
-                if voto_actual != "":
-                    datos["historial_votos"].append(voto_actual)
+                idx = pred[0].probs.top1
+                voto_actual = pred[0].names[idx]
+                datos["historial_votos"].append(voto_actual)
 
         if datos["frames_visto"] >= 12 and datos["historial_votos"]:
 
@@ -281,13 +249,7 @@ def detectar_numero(frame):
             )
 
             mapa = {
-                "plus": "+",
-                "minus": "-",
-                "multiply": "X",
-                "divide": "/",
-                "equal": "=",
-                "open_paren": "(",
-                "close_paren": ")"
+                "minus": "-"
             }
 
             datos["char"] = mapa.get(ganador, ganador)
@@ -396,7 +358,7 @@ if __name__ == "__main__":
         exit()
 
     print("=====================================")
-    print("      TEST DEL MODELO A CONFIRMADO")
+    print("   MODELO A V2 - CALIBRACIÓN FINAL")
     print("=====================================")
     print("ESPACIO -> Capturar y evaluar")
     print("ESPACIO -> Continuar cámara")
